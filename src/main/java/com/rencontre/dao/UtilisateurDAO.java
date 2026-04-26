@@ -177,6 +177,176 @@ public class UtilisateurDAO {
         return false;
     }
 
+    public boolean updateLastActivity(int id) {
+        String sql = "UPDATE utilisateurs SET derniere_activite = NOW() WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean isOnline(int id) {
+        String sql = "SELECT derniere_activite FROM utilisateurs WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Timestamp ts = rs.getTimestamp("derniere_activite");
+                if (ts != null) {
+                    long diffMinutes = (System.currentTimeMillis() - ts.getTime()) / (1000 * 60);
+                    return diffMinutes <= 5;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void recordVisit(int visiteurId, int visiteId) {
+        String sql = "INSERT INTO visites_profil (visiteur_id, visite_id) VALUES (?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, visiteurId);
+            ps.setInt(2, visiteId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Utilisateur> findRecentVisitors(int utilisateurId) {
+        List<Utilisateur> list = new ArrayList<>();
+        String sql = "SELECT DISTINCT u.* FROM utilisateurs u JOIN visites_profil v ON u.id = v.visiteur_id WHERE v.visite_id = ? ORDER BY v.date_visite DESC LIMIT 10";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, utilisateurId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(mapUtilisateur(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public boolean blockUser(int bloqueurId, int bloqueId) {
+        String sql = "INSERT INTO utilisateurs_bloques (bloqueur_id, bloque_id) VALUES (?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, bloqueurId);
+            ps.setInt(2, bloqueId);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean unblockUser(int bloqueurId, int bloqueId) {
+        String sql = "DELETE FROM utilisateurs_bloques WHERE bloqueur_id = ? AND bloque_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, bloqueurId);
+            ps.setInt(2, bloqueId);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean isBlockedBy(int utilisateurId, int bloqueurId) {
+        String sql = "SELECT 1 FROM utilisateurs_bloques WHERE bloqueur_id = ? AND bloque_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, bloqueurId);
+            ps.setInt(2, utilisateurId);
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean deleteAccount(int id) {
+        String sql = "DELETE FROM utilisateurs WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public List<Utilisateur> searchWithDistance(String sexe, Integer ageMin, Integer ageMax, String localisation, Integer interetId, Double lat, Double lon, Integer distanceMax) {
+        List<Utilisateur> list = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT DISTINCT u.* FROM utilisateurs u WHERE u.statut = 'ACTIF' AND u.role != 'ADMIN'");
+        List<Object> params = new ArrayList<>();
+
+        if (sexe != null && !sexe.isEmpty()) {
+            sql.append(" AND u.sexe = ?");
+            params.add(sexe);
+        }
+        if (ageMin != null) {
+            sql.append(" AND TIMESTAMPDIFF(YEAR, u.date_naissance, CURDATE()) >= ?");
+            params.add(ageMin);
+        }
+        if (ageMax != null) {
+            sql.append(" AND TIMESTAMPDIFF(YEAR, u.date_naissance, CURDATE()) <= ?");
+            params.add(ageMax);
+        }
+        if (localisation != null && !localisation.isEmpty()) {
+            sql.append(" AND u.localisation LIKE ?");
+            params.add("%" + localisation + "%");
+        }
+        if (interetId != null) {
+            sql.append(" AND EXISTS (SELECT 1 FROM utilisateur_interets ui WHERE ui.utilisateur_id = u.id AND ui.interet_id = ?)");
+            params.add(interetId);
+        }
+        if (lat != null && lon != null && distanceMax != null) {
+            sql.append(" AND (6371 * ACOS(COS(RADIANS(?)) * COS(RADIANS(u.latitude)) * COS(RADIANS(u.longitude) - RADIANS(?)) + SIN(RADIANS(?)) * SIN(RADIANS(u.latitude)))) <= ?");
+            params.add(lat);
+            params.add(lon);
+            params.add(lat);
+            params.add(distanceMax);
+        }
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+            for (int i = 0; i < params.size(); i++) {
+                ps.setObject(i + 1, params.get(i));
+            }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(mapUtilisateur(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+        final int R = 6371;
+        double latDistance = Math.toRadians(lat2 - lat1);
+        double lonDistance = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+    }
+
     public List<Utilisateur> search(String sexe, Integer ageMin, Integer ageMax, String localisation, Integer interetId) {
         List<Utilisateur> list = new ArrayList<>();
         StringBuilder sql = new StringBuilder("SELECT DISTINCT u.* FROM utilisateurs u WHERE u.statut = 'ACTIF' AND u.role != 'ADMIN'");
@@ -265,6 +435,8 @@ public class UtilisateurDAO {
         u.setDateInscription(rs.getTimestamp("date_inscription").toLocalDateTime());
         Timestamp last = rs.getTimestamp("derniere_connexion");
         if (last != null) u.setDerniereConnexion(last.toLocalDateTime());
+        Timestamp activity = rs.getTimestamp("derniere_activite");
+        if (activity != null) u.setDerniereActivite(activity.toLocalDateTime());
         u.setVisibilite(rs.getString("visibilite"));
         return u;
     }

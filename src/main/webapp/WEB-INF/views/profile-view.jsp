@@ -24,21 +24,65 @@
             <c:if test="${vu.visibilite == 'PUBLIC'}">
                 <span class="badge badge-success">Profil public</span>
             </c:if>
+            <span class="badge badge-${isOnline ? 'success' : 'secondary'}">${isOnline ? '&#128308; En ligne' : '&#9899; Hors ligne'}</span>
         </p>
+        <c:if test="${not empty distance}">
+            <p class="text-muted">&#128205; À ${distance} km de vous</p>
+        </c:if>
         <div class="profile-actions mt-2">
             <form action="${ctx}/app/interaction" method="post" style="display:inline;">
+                <input type="hidden" name="action" value="like">
                 <input type="hidden" name="destinataireId" value="${vu.id}">
-                <input type="hidden" name="type" value="LIKE">
                 <button type="submit" class="btn btn-success">&#128077; J'aime</button>
             </form>
             <a href="${ctx}/app/message?action=conversation&partnerId=${vu.id}" class="btn btn-primary">&#128172; Message</a>
-            <form action="${ctx}/app/interaction" method="post" style="display:inline;" 
-                  onsubmit="return confirm('Voulez-vous vraiment bloquer cet utilisateur ?');">
-                <input type="hidden" name="destinataireId" value="${vu.id}">
-                <input type="hidden" name="type" value="BLOCAGE">
-                <button type="submit" class="btn btn-danger">&#128683; Bloquer</button>
+            <c:choose>
+                <c:when test="${isBlocked}">
+                    <form action="${ctx}/app/interaction" method="post" style="display:inline;">
+                        <input type="hidden" name="action" value="unblock">
+                        <input type="hidden" name="destinataireId" value="${vu.id}">
+                        <button type="submit" class="btn btn-warning">&#128275; Débloquer</button>
+                    </form>
+                </c:when>
+                <c:otherwise>
+                    <form action="${ctx}/app/interaction" method="post" style="display:inline;" 
+                          onsubmit="return confirm('Voulez-vous vraiment bloquer cet utilisateur ?');">
+                        <input type="hidden" name="action" value="block">
+                        <input type="hidden" name="destinataireId" value="${vu.id}">
+                        <button type="submit" class="btn btn-danger">&#128683; Bloquer</button>
+                    </form>
+                </c:otherwise>
+            </c:choose>
+            <button type="button" class="btn btn-outline-danger btn-sm" onclick="document.getElementById('reportForm').style.display='block'">&#128681; Signaler</button>
+        </div>
+        <!-- Formulaire de signalement -->
+        <div id="reportForm" style="display:none;margin-top:1rem;" class="card">
+            <div class="card-header"><h4>Signaler ${vu.prenom}</h4></div>
+            <form action="${ctx}/app/profile" method="post">
+                <input type="hidden" name="action" value="report">
+                <input type="hidden" name="signaleId" value="${vu.id}">
+                <div class="form-group">
+                    <label>Motif</label>
+                    <select name="motif" class="form-control" required>
+                        <option value="FAUX_PROFIL">Faux profil</option>
+                        <option value="HARCELEMENT">Harcèlement</option>
+                        <option value="PHOTO_INAPPROPRIEE">Photo inappropriée</option>
+                        <option value="COMPORTEMENT">Comportement inapproprié</option>
+                        <option value="SPAM">Spam</option>
+                        <option value="AUTRE">Autre</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="description" class="form-control" rows="3" placeholder="Décrivez le problème..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-danger btn-sm">Envoyer le signalement</button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('reportForm').style.display='none'">Annuler</button>
             </form>
         </div>
+        <c:if test="${param.reported == '1'}">
+            <div class="alert alert-success mt-2">&#10004; Signalement envoyé.</div>
+        </c:if>
     </div>
 
     <div>
@@ -63,6 +107,24 @@
                 </c:when>
                 <c:otherwise>
                     <p class="text-muted">Aucun centre d'intérêt renseigné.</p>
+                </c:otherwise>
+            </c:choose>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">&#128247; Galerie photos</h3>
+            </div>
+            <c:choose>
+                <c:when test="${not empty photos}">
+                    <div class="grid grid-3">
+                        <c:forEach var="photo" items="${photos}">
+                            <img src="${photo.url}" style="width:100%;height:120px;object-fit:cover;border-radius:4px;" onerror="this.style.display='none'">
+                        </c:forEach>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <p class="text-muted">Aucune photo dans la galerie.</p>
                 </c:otherwise>
             </c:choose>
         </div>

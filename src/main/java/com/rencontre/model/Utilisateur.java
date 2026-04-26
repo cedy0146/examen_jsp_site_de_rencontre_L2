@@ -25,6 +25,7 @@ public class Utilisateur {
     private String statut;
     private LocalDateTime dateInscription;
     private LocalDateTime derniereConnexion;
+    private LocalDateTime derniereActivite;
     private String visibilite;
     
     private List<CentreInteret> interets = new ArrayList<>();
@@ -68,6 +69,13 @@ public class Utilisateur {
     
     public boolean isActif() {
         return "ACTIF".equals(statut);
+    }
+    
+    public double getDistanceFrom(Utilisateur other) {
+        if (this.latitude == null || this.longitude == null || other.latitude == null || other.longitude == null) {
+            return -1;
+        }
+        return com.rencontre.dao.UtilisateurDAO.calculateDistance(this.latitude, this.longitude, other.latitude, other.longitude);
     }
     
     // Getters et Setters
@@ -118,6 +126,9 @@ public class Utilisateur {
     
     public LocalDateTime getDerniereConnexion() { return derniereConnexion; }
     public void setDerniereConnexion(LocalDateTime derniereConnexion) { this.derniereConnexion = derniereConnexion; }
+    
+    public LocalDateTime getDerniereActivite() { return derniereActivite; }
+    public void setDerniereActivite(LocalDateTime derniereActivite) { this.derniereActivite = derniereActivite; }
     
     public String getVisibilite() { return visibilite; }
     public void setVisibilite(String visibilite) { this.visibilite = visibilite; }

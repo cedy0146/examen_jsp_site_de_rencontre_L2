@@ -1,5 +1,6 @@
 package com.rencontre.controller;
 
+import com.rencontre.dao.SignalementDAO;
 import com.rencontre.dao.UtilisateurDAO;
 import com.rencontre.model.Utilisateur;
 import com.rencontre.service.StatistiquesService;
@@ -16,6 +17,7 @@ import java.io.IOException;
 public class AdminServlet extends HttpServlet {
 
     private UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
+    private SignalementDAO signalementDAO = new SignalementDAO();
     private StatistiquesService statistiquesService = new StatistiquesService();
 
     @Override
@@ -34,6 +36,9 @@ public class AdminServlet extends HttpServlet {
         } else if ("stats".equals(action)) {
             req.setAttribute("stats", statistiquesService.getGlobalStats());
             req.getRequestDispatcher("/WEB-INF/views/admin/stats.jsp").forward(req, resp);
+        } else if ("reports".equals(action)) {
+            req.setAttribute("signalements", signalementDAO.findAll());
+            req.getRequestDispatcher("/WEB-INF/views/admin/reports.jsp").forward(req, resp);
         } else {
             req.setAttribute("stats", statistiquesService.getGlobalStats());
             req.setAttribute("users", utilisateurDAO.findAll());
@@ -59,6 +64,16 @@ public class AdminServlet extends HttpServlet {
             utilisateurDAO.unblockUser(userId);
         } else if ("delete".equals(action)) {
             utilisateurDAO.delete(userId);
+        } else if ("resolveReport".equals(action)) {
+            int reportId = Integer.parseInt(req.getParameter("reportId"));
+            signalementDAO.updateStatut(reportId, "TRAITE");
+            resp.sendRedirect(req.getContextPath() + "/app/admin?action=reports");
+            return;
+        } else if ("rejectReport".equals(action)) {
+            int reportId = Integer.parseInt(req.getParameter("reportId"));
+            signalementDAO.updateStatut(reportId, "REJETE");
+            resp.sendRedirect(req.getContextPath() + "/app/admin?action=reports");
+            return;
         }
 
         resp.sendRedirect(req.getContextPath() + "/app/admin?action=users");

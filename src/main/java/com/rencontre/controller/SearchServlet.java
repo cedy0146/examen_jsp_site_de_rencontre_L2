@@ -46,10 +46,19 @@ public class SearchServlet extends HttpServlet {
         Integer ageMax = parseIntOrNull(req.getParameter("ageMax"));
         String localisation = req.getParameter("localisation");
         Integer interetId = parseIntOrNull(req.getParameter("interetId"));
+        Integer distanceMax = parseIntOrNull(req.getParameter("distanceMax"));
 
-        List<Utilisateur> results = utilisateurDAO.search(sexe, ageMin, ageMax, localisation, interetId);
+        Double lat = user.getLatitude();
+        Double lon = user.getLongitude();
+
+        List<Utilisateur> results;
+        if (lat != null && lon != null && distanceMax != null) {
+            results = utilisateurDAO.searchWithDistance(sexe, ageMin, ageMax, localisation, interetId, lat, lon, distanceMax);
+        } else {
+            results = utilisateurDAO.search(sexe, ageMin, ageMax, localisation, interetId);
+        }
         // Filtrer les utilisateurs bloqués
-        results.removeIf(u -> interactionDAO.isBlocked(user.getId(), u.getId()) || interactionDAO.isBlocked(u.getId(), user.getId()));
+        results.removeIf(u -> utilisateurDAO.isBlockedBy(u.getId(), user.getId()) || utilisateurDAO.isBlockedBy(user.getId(), u.getId()));
 
         req.setAttribute("results", results);
         req.setAttribute("allInterets", centreInteretDAO.findAll());

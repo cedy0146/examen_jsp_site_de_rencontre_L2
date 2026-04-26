@@ -1,29 +1,53 @@
-# TODO - Corrections appliquées
+# TODO - 6 Nouvelles fonctionnalités
 
-## 1. Correction erreur 500 après connexion
-- [x] `DashboardServlet.java` : typer les List en `List<Match>`, `List<Notification>`
-- [x] `DashboardServlet.java` : try-catch global dans doGet pour logger proprement
+## 1. Statut "En ligne" + Derniers visiteurs
+- [x] `Utilisateur.java` : ajouter `derniereActivite` (déjà présent)
+- [x] `database.sql` : ajouter colonne `derniere_activite TIMESTAMP` (déjà présent)
+- [x] `UtilisateurDAO.java` : méthode `updateLastActivity()` (déjà présent)
+- [x] `AuthFilter.java` : mettre à jour `derniere_activite` à chaque requête
+- [x] `UtilisateurDAO.java` : méthode `isOnline()` (déjà présent)
+- [x] Table `visites_profil` (visiteur_id, visite_id, date_visite) (déjà présent)
+- [x] `ProfileServlet.java` : enregistrer la visite quand on voit un profil
+- [x] `profile.jsp` : afficher "En ligne" / "Hors ligne"
+- [x] `profile.jsp` : afficher les derniers visiteurs
 
-## 2. Messagerie directe (envoyer à n'importe qui)
-- [x] `messages.jsp` : la zone de chat s'affiche dès qu'un `partner` est défini, même sans messages existants
-- [x] `messages.jsp` : ajout d'un formulaire "Nouveau message direct" avec champ ID utilisateur + message
-- [x] `messages.jsp` : affichage du vrai nom/prénom du partenaire dans l'en-tête de conversation
-- [x] `profile-view.jsp` : le lien Message amène directement à la conversation fonctionnelle
+## 2. Blocage d'utilisateur + Suppression de compte
+- [x] `database.sql` : table `utilisateurs_bloques` (bloqueur_id, bloque_id)
+- [x] `UtilisateurDAO.java` : méthodes `blockUser()`, `unblockUser()`, `isBlockedBy()` (déjà présents)
+- [x] `InteractionServlet.java` : action blocage/déblocage
+- [x] `profile-view.jsp` : bouton Bloquer/Débloquer
+- [x] `AuthServlet.java` : action `delete` pour suppression compte
+- [x] `profile.jsp` : bouton "Supprimer mon compte" avec confirmation
 
-## 3. Règles de complexité mot de passe
-- [x] `PasswordUtil.java` : ajouter `isPasswordValid()` et `getPasswordRulesMessage()`
-- [x] `AuthServlet.java` : valider la complexité lors de l'inscription (error=3)
-- [x] `register.jsp` : afficher le message d'erreur pour error=3
-- [x] `register.jsp` : changer minlength de 6 à 8
-- [x] `database.sql` : mettre à jour les mots de passe de test avec des mots de passe conformes
+## 3. Distance géographique
+- [x] `Utilisateur.java` : méthode `getDistanceFrom(Utilisateur other)`
+- [x] `SearchServlet.java` : filtre par distance (utiliser latitude/longitude)
+- [x] `search.jsp` : champ "Distance max (km)"
+- [x] `profile-view.jsp` : afficher "À X km de vous"
 
----
+## 4. Photos multiples (Galerie)
+- [x] `database.sql` : table `photos` (id, utilisateur_id, url, ordre, date_ajout) (déjà présent)
+- [x] `Photo.java` : modèle
+- [x] `PhotoDAO.java` : CRUD
+- [x] `ProfileServlet.java` : gérer upload/suppression photos
+- [x] `profile-edit.jsp` : upload multiple photos
+- [x] `profile-view.jsp` : galerie de photos
+- [x] `profile.jsp` : galerie de photos
 
-**Mots de passe de test mis à jour :**
-- admin@rencontre.com → `Admin@2026!`
-- jean.dupont@email.com → `Jean@Dupont1`
-- marie.martin@email.com → `Marie@Martin2`
-- pierre.bernard@email.com → `Pierre@Bernard3`
-- sophie.petit@email.com → `Sophie@Petit4`
-- lucas.moreau@email.com → `Lucas@Moreau5`
+## 5. Signalement + Modération admin
+- [x] `database.sql` : table `signalements` (id, signalant_id, signale_id, motif, description, statut, date) (déjà présent)
+- [x] `Signalement.java` : modèle
+- [x] `SignalementDAO.java` : CRUD
+- [x] `ProfileServlet.java` : action `report`
+- [x] `profile-view.jsp` : bouton "Signaler"
+- [x] `AdminServlet.java` : page modération signalements
+- [x] `admin/reports.jsp` : liste des signalements
+
+## 6. Mot de passe oublié
+- [x] `database.sql` : table `reset_tokens` (id, utilisateur_id, token, expiration) (déjà présent)
+- [x] `PasswordUtil.java` : générer token sécurisé (déjà présent)
+- [x] `AuthServlet.java` : actions `forgot-password`, `reset-password`
+- [x] `forgot-password.jsp` : formulaire email
+- [x] `reset-password.jsp` : formulaire nouveau mot de passe
+- [x] `login.jsp` : lien "Mot de passe oublié ?"
 

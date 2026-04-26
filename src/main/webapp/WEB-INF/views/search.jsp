@@ -36,6 +36,10 @@
             <input type="text" id="localisation" name="localisation" class="form-control" placeholder="Paris, Lyon...">
         </div>
         <div class="form-group">
+            <label for="distanceMax">Distance max (km)</label>
+            <input type="number" id="distanceMax" name="distanceMax" class="form-control" value="50" min="1" max="500">
+        </div>
+        <div class="form-group">
             <label for="interetId">Centre d'intérêt</label>
             <select id="interetId" name="interetId" class="form-control">
                 <option value="">Tous</option>
@@ -65,6 +69,9 @@
                          onerror="this.src='${ctx}/assets/images/default-avatar.png'">
                     <div class="profile-name">${u.prenom}, ${u.age} ans</div>
                     <div class="profile-info">${u.sexe} &bull; ${u.localisation}</div>
+                    <c:if test="${not empty u.latitude and not empty u.longitude and not empty user.latitude and not empty user.longitude}">
+                        <div class="profile-info text-muted">&#128205; ${String.format('%.1f', u.getDistanceFrom(user))} km</div>
+                    </c:if>
                     <p class="profile-bio">${not empty u.bio ? u.bio.substring(0, u.bio.length() > 60 ? 60 : u.bio.length()).concat('...') : '<em>Pas de bio</em>'}</p>
                     <div class="profile-actions">
                         <a href="${ctx}/app/profile?action=view&id=${u.id}" class="btn btn-primary btn-sm">Voir profil</a>

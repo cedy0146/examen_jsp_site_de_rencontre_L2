@@ -47,6 +47,7 @@
 
         <div class="auth-footer">
             <p>Pas encore membre ? <a href="${ctx}/register.jsp">Créer un compte</a></p>
+            <p><a href="${ctx}/forgot-password">Mot de passe oublié ?</a></p>
             <p><a href="${ctx}/index.html">&#8592; Retour à l'accueil</a></p>
         </div>
     </div>

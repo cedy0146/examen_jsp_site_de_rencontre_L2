@@ -8,9 +8,17 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-@WebServlet(urlPatterns = {"/login", "/logout", "/register"})
+import com.rencontre.util.DBConnection;
+
+@WebServlet(urlPatterns = {"/login", "/logout", "/register", "/forgot-password", "/reset-password", "/delete-account"})
 public class AuthServlet extends HttpServlet {
     
     private UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
@@ -23,6 +31,12 @@ public class AuthServlet extends HttpServlet {
             handleLogin(req, resp);
         } else if ("/register".equals(path)) {
             handleRegister(req, resp);
+        } else if ("/forgot-password".equals(path)) {
+            handleForgotPassword(req, resp);
+        } else if ("/reset-password".equals(path)) {
+            handleResetPassword(req, resp);
+        } else if ("/delete-account".equals(path)) {
+            handleDeleteAccount(req, resp);
         }
     }
 
@@ -95,6 +109,80 @@ public class AuthServlet extends HttpServlet {
                 session.invalidate();
             }
             resp.sendRedirect(req.getContextPath() + "/index.jsp?logout=1");
+        } else if ("/forgot-password".equals(path)) {
+            req.getRequestDispatcher("/forgot-password.jsp").forward(req, resp);
+        } else if ("/reset-password".equals(path)) {
+            req.setAttribute("token", req.getParameter("token"));
+            req.getRequestDispatcher("/reset-password.jsp").forward(req, resp);
         }
+    }
+
+    private void handleForgotPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String email = req.getParameter("email");
+        Utilisateur user = utilisateurDAO.findByEmail(email);
+        if (user != null) {
+            String token = PasswordUtil.generateSecureToken();
+            String sql = "INSERT INTO reset_tokens (utilisateur_id, token, expiration) VALUES (?, ?, ?)";
+            try (Connection conn = DBConnection.getConnection();
+                 PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setInt(1, user.getId());
+                ps.setString(2, token);
+                ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now().plusHours(24)));
+                ps.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            // En production, envoyer un email avec le lien de réinitialisation
+            // Pour l'instant, on redirige avec le token en paramètre (démonstration)
+            resp.sendRedirect(req.getContextPath() + "/reset-password?token=" + token + "&sent=1");
+        } else {
+            resp.sendRedirect(req.getContextPath() + "/forgot-password?error=1");
+        }
+    }
+
+    private void handleResetPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String token = req.getParameter("token");
+        String password = req.getParameter("password");
+        String confirmPassword = req.getParameter("confirm_password");
+
+        if (password == null || !password.equals(confirmPassword)) {
+            resp.sendRedirect(req.getContextPath() + "/reset-password?token=" + token + "&error=2");
+            return;
+        }
+        if (!PasswordUtil.isPasswordValid(password)) {
+            resp.sendRedirect(req.getContextPath() + "/reset-password?token=" + token + "&error=3");
+            return;
+        }
+
+        String sql = "SELECT utilisateur_id FROM reset_tokens WHERE token = ? AND expiration > NOW() AND utilise = FALSE";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, token);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int userId = rs.getInt("utilisateur_id");
+                utilisateurDAO.updatePassword(userId, password);
+                // Marquer le token comme utilisé
+                try (PreparedStatement ps2 = conn.prepareStatement("UPDATE reset_tokens SET utilise = TRUE WHERE token = ?")) {
+                    ps2.setString(1, token);
+                    ps2.executeUpdate();
+                }
+                resp.sendRedirect(req.getContextPath() + "/login.jsp?reset=1");
+                return;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        resp.sendRedirect(req.getContextPath() + "/reset-password?token=" + token + "&error=1");
+    }
+
+    private void handleDeleteAccount(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        HttpSession session = req.getSession();
+        Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
+        if (user != null) {
+            utilisateurDAO.deleteAccount(user.getId());
+            session.invalidate();
+        }
+        resp.sendRedirect(req.getContextPath() + "/index.jsp?deleted=1");
     }
 }

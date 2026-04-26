@@ -1,6 +1,7 @@
 package com.rencontre.controller;
 
 import com.rencontre.dao.InteractionDAO;
+import com.rencontre.dao.UtilisateurDAO;
 import com.rencontre.model.Interaction;
 import com.rencontre.model.Utilisateur;
 import com.rencontre.service.NotificationService;
@@ -17,6 +18,7 @@ import java.io.IOException;
 public class InteractionServlet extends HttpServlet {
 
     private InteractionDAO interactionDAO = new InteractionDAO();
+    private UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
     private NotificationService notificationService = new NotificationService();
 
     @Override
@@ -58,12 +60,9 @@ public class InteractionServlet extends HttpServlet {
         } else if ("unlike".equals(action)) {
             interactionDAO.deleteLike(user.getId(), destinataireId);
         } else if ("block".equals(action)) {
-            Interaction interaction = new Interaction();
-            interaction.setExpediteurId(user.getId());
-            interaction.setDestinataireId(destinataireId);
-            interaction.setType("BLOCAGE");
-            interaction.setContenu("A bloqué cet utilisateur");
-            interactionDAO.create(interaction);
+            utilisateurDAO.blockUser(user.getId(), destinataireId);
+        } else if ("unblock".equals(action)) {
+            utilisateurDAO.unblockUser(user.getId(), destinataireId);
         }
 
         // Rediriger vers la page précédente ou le profil

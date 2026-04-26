@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import com.rencontre.model.Utilisateur;
+import com.rencontre.dao.UtilisateurDAO;
 
 /**
  * Filtre d'authentification : protege les routes /app/*.
@@ -52,9 +53,14 @@ public class AuthFilter implements Filter {
             return;
         }
         
+        // Mettre à jour la dernière activité
+        Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
+        if (user != null) {
+            new UtilisateurDAO().updateLastActivity(user.getId());
+        }
+        
         // Verifier les droits admin
         if (isAdminRoute) {
-            Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
             if (!user.isAdmin()) {
                 httpResponse.sendRedirect(contextPath + "/app/profile");
                 return;

@@ -24,9 +24,15 @@
         <p>
             <span class="badge badge-${user.role == 'ADMIN' ? 'danger' : user.role == 'VIP' ? 'warning' : 'secondary'}">${user.role}</span>
             <span class="badge badge-${user.statut == 'ACTIF' ? 'success' : 'danger'}">${user.statut}</span>
+            <span class="badge badge-${isOnline ? 'success' : 'secondary'}">${isOnline ? '&#128308; En ligne' : '&#9899; Hors ligne'}</span>
         </p>
         <div class="mt-2">
             <a href="${ctx}/app/profile?action=edit" class="btn btn-primary">&#9998; Modifier mon profil</a>
+        </div>
+        <div class="mt-2">
+            <form action="${ctx}/delete-account" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.');">
+                <button type="submit" class="btn btn-danger btn-sm">&#128465; Supprimer mon compte</button>
+            </form>
         </div>
     </div>
 
@@ -92,6 +98,46 @@
                 <c:otherwise>
                     <p class="text-muted">Vous n'avez pas d'abonnement actif.</p>
                     <a href="${ctx}/app/subscription" class="btn btn-sm btn-primary">Voir les offres</a>
+                </c:otherwise>
+            </c:choose>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">&#128247; Ma galerie</h3>
+            </div>
+            <c:choose>
+                <c:when test="${not empty photos}">
+                    <div class="grid grid-4">
+                        <c:forEach var="photo" items="${photos}">
+                            <img src="${photo.url}" style="width:100%;height:100px;object-fit:cover;border-radius:4px;" onerror="this.style.display='none'">
+                        </c:forEach>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <p class="text-muted">Aucune photo dans votre galerie.</p>
+                </c:otherwise>
+            </c:choose>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">&#128064; Derniers visiteurs</h3>
+            </div>
+            <c:choose>
+                <c:when test="${not empty recentVisitors}">
+                    <div class="d-flex gap-1" style="flex-wrap:wrap;">
+                        <c:forEach var="visitor" items="${recentVisitors}">
+                            <a href="${ctx}/app/profile?action=view&id=${visitor.id}" title="${visitor.prenom} ${visitor.nom}">
+                                <img src="${visitor.photoProfil != null ? visitor.photoProfil : ctx.concat('/assets/images/default-avatar.png')}" 
+                                     style="width:50px;height:50px;border-radius:50%;object-fit:cover;"
+                                     onerror="this.src='${ctx}/assets/images/default-avatar.png'">
+                            </a>
+                        </c:forEach>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <p class="text-muted">Aucun visiteur récent.</p>
                 </c:otherwise>
             </c:choose>
         </div>

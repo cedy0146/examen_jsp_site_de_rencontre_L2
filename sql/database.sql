@@ -26,10 +26,24 @@ CREATE TABLE IF NOT EXISTS utilisateurs (
     statut ENUM('ACTIF', 'BLOQUE', 'SUPPRIME') DEFAULT 'ACTIF',
     date_inscription TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     derniere_connexion TIMESTAMP NULL,
+    derniere_activite TIMESTAMP NULL,
     visibilite ENUM('PUBLIC', 'AMIS', 'PRIVE') DEFAULT 'PUBLIC',
     INDEX idx_email (email),
     INDEX idx_localisation (localisation),
     INDEX idx_role (role)
+);
+
+-- ============================================
+-- TABLE : utilisateurs_bloques
+-- ============================================
+CREATE TABLE IF NOT EXISTS utilisateurs_bloques (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    bloqueur_id INT NOT NULL,
+    bloque_id INT NOT NULL,
+    date_blocage TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY unique_blocage (bloqueur_id, bloque_id),
+    FOREIGN KEY (bloqueur_id) REFERENCES utilisateurs(id) ON DELETE CASCADE,
+    FOREIGN KEY (bloque_id) REFERENCES utilisateurs(id) ON DELETE CASCADE
 );
 
 -- ============================================
@@ -147,6 +161,58 @@ CREATE TABLE IF NOT EXISTS notifications (
     date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id) ON DELETE CASCADE,
     INDEX idx_utilisateur_lu (utilisateur_id, lu)
+);
+
+-- ============================================
+-- TABLE : visites_profil
+-- ============================================
+CREATE TABLE IF NOT EXISTS visites_profil (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    visiteur_id INT NOT NULL,
+    visite_id INT NOT NULL,
+    date_visite TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (visiteur_id) REFERENCES utilisateurs(id) ON DELETE CASCADE,
+    FOREIGN KEY (visite_id) REFERENCES utilisateurs(id) ON DELETE CASCADE,
+    INDEX idx_visite (visite_id, date_visite)
+);
+
+-- ============================================
+-- TABLE : photos
+-- ============================================
+CREATE TABLE IF NOT EXISTS photos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    utilisateur_id INT NOT NULL,
+    url VARCHAR(255) NOT NULL,
+    ordre INT DEFAULT 0,
+    date_ajout TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id) ON DELETE CASCADE
+);
+
+-- ============================================
+-- TABLE : signalements
+-- ============================================
+CREATE TABLE IF NOT EXISTS signalements (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    signalant_id INT NOT NULL,
+    signale_id INT NOT NULL,
+    motif ENUM('FAUX_PROFIL', 'HARCELEMENT', 'PHOTO_INAPPROPRIEE', 'COMPORTEMENT', 'SPAM', 'AUTRE') NOT NULL,
+    description TEXT,
+    statut ENUM('EN_ATTENTE', 'TRAITE', 'REJETE') DEFAULT 'EN_ATTENTE',
+    date_signalement TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (signalant_id) REFERENCES utilisateurs(id) ON DELETE CASCADE,
+    FOREIGN KEY (signale_id) REFERENCES utilisateurs(id) ON DELETE CASCADE
+);
+
+-- ============================================
+-- TABLE : reset_tokens
+-- ============================================
+CREATE TABLE IF NOT EXISTS reset_tokens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    utilisateur_id INT NOT NULL,
+    token VARCHAR(255) NOT NULL UNIQUE,
+    expiration TIMESTAMP NOT NULL,
+    utilise BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id) ON DELETE CASCADE
 );
 
 -- ============================================

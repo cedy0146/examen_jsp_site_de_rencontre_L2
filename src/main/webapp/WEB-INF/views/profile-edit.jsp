@@ -71,6 +71,23 @@
                     <p class="text-muted mt-1"><small>Photo actuelle : ${user.photoProfil}</small></p>
                 </c:if>
             </div>
+            <div class="form-group">
+                <label for="photos">Photos de la galerie (plusieurs fichiers possibles)</label>
+                <input type="file" id="photos" name="photos" class="form-control" accept="image/*" multiple>
+            </div>
+            <c:if test="${not empty photos}">
+                <div class="form-group">
+                    <label>Photos existantes</label>
+                    <div class="grid grid-4">
+                        <c:forEach var="photo" items="${photos}">
+                            <div style="position:relative;">
+                                <img src="${photo.url}" style="width:100%;height:80px;object-fit:cover;border-radius:4px;" onerror="this.style.display='none'">
+                                <a href="${ctx}/app/profile?action=deletePhoto&photoId=${photo.id}" class="btn btn-danger btn-xs" style="position:absolute;top:2px;right:2px;padding:2px 6px;font-size:10px;" onclick="return confirm('Supprimer cette photo ?')">&#10005;</a>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+            </c:if>
         </div>
 
         <!-- Préférences et intérêts -->
