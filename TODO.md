@@ -1,40 +1,20 @@
+# TODO - Correction du bug d'inscription
 
+## Problème
+Lors de la création d'un nouveau compte, le message "Une erreur interne s'est produite. Veuillez réessayer plus tard." s'affiche.
 
+## Causes identifiées
+1. **Champs obligatoires manquants dans AuthServlet** : `dateNaissance`, `sexe`, `localisation`, `bio` ne sont pas lus depuis le formulaire, mais sont requis par le DAO et la BDD (`date_naissance` NOT NULL).
+2. **Double hachage du mot de passe** : `AuthServlet` hache le mot de passe, puis `UtilisateurDAO.create()` le hache à nouveau.
+3. **Absence de gestion d'erreurs** : Les exceptions remontent jusqu'à `error.jsp`.
 
-# Plan de création des interfaces JSP pour Coup de Foudre
+## Plan de correction
+- [x] Analyser les fichiers concernés
+- [x] Modifier `AuthServlet.java` pour lire tous les champs du formulaire
+- [x] Modifier `AuthServlet.java` pour parser `dateNaissance` en `LocalDate`
+- [x] Modifier `AuthServlet.java` pour passer le mot de passe en clair au DAO
+- [x] Modifier `AuthServlet.java` pour ajouter un try-catch avec log
+- [x] Modifier `register.jsp` pour ajouter le message d'erreur mots de passe différents
+- [x] Recompiler le projet
+- [ ] Tester l'inscription
 
-## Composants partagés
-- [x] `header.jsp` - Navigation conditionnelle
-- [x] `footer.jsp` - Pied de page
-- [x] `style.css` - Design system complet
-
-## Pages publiques
-- [x] `index.jsp` - Page d'accueil moderne
-- [x] `login.jsp` - Connexion
-- [x] `register.jsp` - Inscription
-
-## Pages utilisateur connecté
-- [x] `dashboard.jsp` - Tableau de bord avec suggestions
-- [x] `profile.jsp` - Affichage du profil
-- [x] `profile-edit.jsp` - Édition du profil + préférences (CRUD)
-- [x] `profile-view.jsp` - Visualisation d'un profil tiers
-- [x] `search.jsp` - Recherche avancée avec filtres
-- [x] `matches.jsp` - Liste des matchs et suggestions
-- [x] `messages.jsp` - Messagerie
-- [x] `notifications.jsp` - Centre de notifications
-- [x] `subscription.jsp` - Gestion des abonnements
-
-## Pages admin
-- [x] `admin/dashboard.jsp` - Dashboard admin
-- [x] `admin/users.jsp` - Gestion des utilisateurs (CRUD)
-- [x] `admin/stats.jsp` - Statistiques
-
-## Pages d'erreur
-- [x] `error.jsp` - Page d'erreur 404/500
-
-## Modifications backend
-- [x] `AuthServlet.java` - Redirection vers les nouvelles pages JSP
-- [x] `web.xml` - Welcome-file vers index.jsp
-
-## Redirections
-- [x] Anciens JSP (dashboard.jsp, profile.jsp, search.jsp) redirigent vers les nouvelles pages

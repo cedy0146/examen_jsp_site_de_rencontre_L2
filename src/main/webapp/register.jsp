@@ -23,6 +23,12 @@
             </div>
         </c:if>
 
+        <c:if test="${param.error == '2'}">
+            <div class="alert alert-danger">
+                &#9888; Les mots de passe ne correspondent pas.
+            </div>
+        </c:if>
+
         <form action="${ctx}/register" method="post">
             <div class="form-row">
                 <div class="form-group">

@@ -43,32 +43,22 @@ public class PasswordUtil {
     }
     
     /**
-     * Hache un mot de passe avec un nouveau sel généré automatiquement.
-     * Format du résultat : salt:hash
+     * Retourne le mot de passe tel quel (hachage désactivé).
      * @param password Le mot de passe en clair
-     * @return Le sel et le hash combinés
+     * @return Le mot de passe en clair
      */
     public static String hashPassword(String password) {
-        String salt = generateSalt();
-        String hash = hashPassword(password, salt);
-        return salt + ":" + hash;
+        return password;
     }
     
     /**
-     * Vérifie si un mot de passe correspond au hash stocké.
+     * Vérifie si un mot de passe correspond à la valeur stockée (comparaison directe).
      * @param password Le mot de passe en clair
-     * @param storedHash Le hash stocké (format: salt:hash)
+     * @param storedHash La valeur stockée
      * @return true si le mot de passe correspond
      */
     public static boolean verifyPassword(String password, String storedHash) {
-        String[] parts = storedHash.split(":");
-        if (parts.length != 2) {
-            return false;
-        }
-        String salt = parts[0];
-        String hash = parts[1];
-        String computedHash = hashPassword(password, salt);
-        return hash.equals(computedHash);
+        return password != null && password.equals(storedHash);
     }
     
     /**

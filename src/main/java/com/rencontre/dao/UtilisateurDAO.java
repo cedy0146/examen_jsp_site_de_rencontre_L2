@@ -66,7 +66,7 @@ public class UtilisateurDAO {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, u.getEmail());
-            ps.setString(2, PasswordUtil.hashPassword(u.getMotDePasse()));
+            ps.setString(2, u.getMotDePasse());
             ps.setString(3, u.getNom());
             ps.setString(4, u.getPrenom());
             ps.setDate(5, Date.valueOf(u.getDateNaissance()));
@@ -120,7 +120,7 @@ public class UtilisateurDAO {
         String sql = "UPDATE utilisateurs SET mot_de_passe = ? WHERE id = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, PasswordUtil.hashPassword(newPassword));
+            ps.setString(1, newPassword);
             ps.setInt(2, userId);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
