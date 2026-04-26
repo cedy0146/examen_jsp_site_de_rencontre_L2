@@ -52,6 +52,12 @@ public class AuthServlet extends HttpServlet {
                 return;
             }
 
+            // Vérification de la complexité du mot de passe
+            if (!PasswordUtil.isPasswordValid(password)) {
+                resp.sendRedirect(req.getContextPath() + "/register.jsp?error=3");
+                return;
+            }
+
             Utilisateur user = new Utilisateur();
             user.setEmail(req.getParameter("email"));
             user.setNom(req.getParameter("nom"));
@@ -88,7 +94,7 @@ public class AuthServlet extends HttpServlet {
             if (session != null) {
                 session.invalidate();
             }
-resp.sendRedirect(req.getContextPath() + "/index.jsp?logout=1");
+            resp.sendRedirect(req.getContextPath() + "/index.jsp?logout=1");
         }
     }
 }

@@ -1,20 +1,29 @@
-# TODO - Correction du bug d'inscription
+# TODO - Corrections appliquées
 
-## Problème
-Lors de la création d'un nouveau compte, le message "Une erreur interne s'est produite. Veuillez réessayer plus tard." s'affiche.
+## 1. Correction erreur 500 après connexion
+- [x] `DashboardServlet.java` : typer les List en `List<Match>`, `List<Notification>`
+- [x] `DashboardServlet.java` : try-catch global dans doGet pour logger proprement
 
-## Causes identifiées
-1. **Champs obligatoires manquants dans AuthServlet** : `dateNaissance`, `sexe`, `localisation`, `bio` ne sont pas lus depuis le formulaire, mais sont requis par le DAO et la BDD (`date_naissance` NOT NULL).
-2. **Double hachage du mot de passe** : `AuthServlet` hache le mot de passe, puis `UtilisateurDAO.create()` le hache à nouveau.
-3. **Absence de gestion d'erreurs** : Les exceptions remontent jusqu'à `error.jsp`.
+## 2. Messagerie directe (envoyer à n'importe qui)
+- [x] `messages.jsp` : la zone de chat s'affiche dès qu'un `partner` est défini, même sans messages existants
+- [x] `messages.jsp` : ajout d'un formulaire "Nouveau message direct" avec champ ID utilisateur + message
+- [x] `messages.jsp` : affichage du vrai nom/prénom du partenaire dans l'en-tête de conversation
+- [x] `profile-view.jsp` : le lien Message amène directement à la conversation fonctionnelle
 
-## Plan de correction
-- [x] Analyser les fichiers concernés
-- [x] Modifier `AuthServlet.java` pour lire tous les champs du formulaire
-- [x] Modifier `AuthServlet.java` pour parser `dateNaissance` en `LocalDate`
-- [x] Modifier `AuthServlet.java` pour passer le mot de passe en clair au DAO
-- [x] Modifier `AuthServlet.java` pour ajouter un try-catch avec log
-- [x] Modifier `register.jsp` pour ajouter le message d'erreur mots de passe différents
-- [x] Recompiler le projet
-- [ ] Tester l'inscription
+## 3. Règles de complexité mot de passe
+- [x] `PasswordUtil.java` : ajouter `isPasswordValid()` et `getPasswordRulesMessage()`
+- [x] `AuthServlet.java` : valider la complexité lors de l'inscription (error=3)
+- [x] `register.jsp` : afficher le message d'erreur pour error=3
+- [x] `register.jsp` : changer minlength de 6 à 8
+- [x] `database.sql` : mettre à jour les mots de passe de test avec des mots de passe conformes
+
+---
+
+**Mots de passe de test mis à jour :**
+- admin@rencontre.com → `Admin@2026!`
+- jean.dupont@email.com → `Jean@Dupont1`
+- marie.martin@email.com → `Marie@Martin2`
+- pierre.bernard@email.com → `Pierre@Bernard3`
+- sophie.petit@email.com → `Sophie@Petit4`
+- lucas.moreau@email.com → `Lucas@Moreau5`
 

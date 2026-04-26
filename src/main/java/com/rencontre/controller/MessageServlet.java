@@ -33,11 +33,28 @@ public class MessageServlet extends HttpServlet {
 
         String action = req.getParameter("action");
         if ("conversation".equals(action)) {
-            int partnerId = Integer.parseInt(req.getParameter("partnerId"));
+            String partnerIdStr = req.getParameter("partnerId");
+            if (partnerIdStr == null || partnerIdStr.isEmpty()) {
+                resp.sendRedirect(req.getContextPath() + "/app/message");
+                return;
+            }
+            int partnerId;
+            try {
+                partnerId = Integer.parseInt(partnerIdStr);
+            } catch (NumberFormatException e) {
+                resp.sendRedirect(req.getContextPath() + "/app/message");
+                return;
+            }
+            Utilisateur partner = utilisateurDAO.findById(partnerId);
+            if (partner == null) {
+                req.setAttribute("errorMessage", "Utilisateur introuvable.");
+                req.getRequestDispatcher("/WEB-INF/views/messages.jsp").forward(req, resp);
+                return;
+            }
             List<Message> messages = messageDAO.findConversation(user.getId(), partnerId);
             messageDAO.markConversationAsRead(user.getId(), partnerId);
             req.setAttribute("messages", messages);
-            req.setAttribute("partner", utilisateurDAO.findById(partnerId));
+            req.setAttribute("partner", partner);
             req.getRequestDispatcher("/WEB-INF/views/messages.jsp").forward(req, resp);
         } else {
             List<Integer> partners = messageDAO.findConversationPartners(user.getId());
@@ -55,8 +72,19 @@ public class MessageServlet extends HttpServlet {
             return;
         }
 
-        int destinataireId = Integer.parseInt(req.getParameter("destinataireId"));
+        String destinataireIdStr = req.getParameter("destinataireId");
         String contenu = req.getParameter("contenu");
+        if (destinataireIdStr == null || destinataireIdStr.isEmpty() || contenu == null || contenu.trim().isEmpty()) {
+            resp.sendRedirect(req.getContextPath() + "/app/message");
+            return;
+        }
+        int destinataireId;
+        try {
+            destinataireId = Integer.parseInt(destinataireIdStr);
+        } catch (NumberFormatException e) {
+            resp.sendRedirect(req.getContextPath() + "/app/message");
+            return;
+        }
 
         Message m = new Message();
         m.setExpediteurId(user.getId());

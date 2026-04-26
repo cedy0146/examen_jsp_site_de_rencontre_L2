@@ -2,6 +2,7 @@ package com.rencontre.controller;
 
 import com.rencontre.dao.*;
 import com.rencontre.model.*;
+import com.rencontre.service.NotificationService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +22,7 @@ public class ProfileServlet extends HttpServlet {
     private UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
     private CentreInteretDAO centreInteretDAO = new CentreInteretDAO();
     private PreferencesDAO preferencesDAO = new PreferencesDAO();
+    private NotificationService notificationService = new NotificationService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,11 +39,26 @@ public class ProfileServlet extends HttpServlet {
             req.setAttribute("allInterets", centreInteretDAO.findAll());
             req.getRequestDispatcher("/WEB-INF/views/profile-edit.jsp").forward(req, resp);
         } else if ("view".equals(action)) {
-            int id = Integer.parseInt(req.getParameter("id"));
+            String idStr = req.getParameter("id");
+            if (idStr == null || idStr.isEmpty()) {
+                resp.sendRedirect(req.getContextPath() + "/app/profile");
+                return;
+            }
+            int id;
+            try {
+                id = Integer.parseInt(idStr);
+            } catch (NumberFormatException e) {
+                resp.sendRedirect(req.getContextPath() + "/app/profile");
+                return;
+            }
             Utilisateur viewed = utilisateurDAO.findById(id);
             if (viewed != null) {
                 utilisateurDAO.loadRelations(viewed);
                 req.setAttribute("viewedUser", viewed);
+                // Envoyer une notification de visite de profil (sauf si on visite son propre profil)
+                if (user != null && user.getId() != viewed.getId()) {
+                    notificationService.notifyProfileView(viewed.getId(), user.getNomComplet());
+                }
                 req.getRequestDispatcher("/WEB-INF/views/profile-view.jsp").forward(req, resp);
             } else {
                 resp.sendRedirect(req.getContextPath() + "/app/profile");
@@ -106,4 +123,3 @@ public class ProfileServlet extends HttpServlet {
         }
     }
 }
-

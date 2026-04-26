@@ -1,5 +1,6 @@
 package com.rencontre.controller;
 
+import com.rencontre.model.Notification;
 import com.rencontre.model.Utilisateur;
 import com.rencontre.service.NotificationService;
 
@@ -26,6 +27,29 @@ public class NotificationServlet extends HttpServlet {
             return;
         }
 
+        // Vérifier si on doit marquer une notification comme lue et rediriger
+        String readId = req.getParameter("read");
+        if (readId != null && !readId.isEmpty()) {
+            try {
+                int notificationId = Integer.parseInt(readId);
+                Notification notif = notificationService.getNotificationsForUser(user.getId())
+                    .stream()
+                    .filter(n -> n.getId() == notificationId)
+                    .findFirst()
+                    .orElse(null);
+                
+                if (notif != null) {
+                    notificationService.markAsRead(notificationId);
+                    // Rediriger selon le type de notification
+                    String redirectUrl = getRedirectUrl(notif);
+                    resp.sendRedirect(req.getContextPath() + redirectUrl);
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                // Ignorer et afficher la liste
+            }
+        }
+
         req.setAttribute("notifications", notificationService.getNotificationsForUser(user.getId()));
         req.getRequestDispatcher("/WEB-INF/views/notifications.jsp").forward(req, resp);
     }
@@ -49,5 +73,25 @@ public class NotificationServlet extends HttpServlet {
         }
 
         resp.sendRedirect(req.getContextPath() + "/app/notifications");
+    }
+
+    /**
+     * Détermine l'URL de redirection en fonction du type de notification.
+     */
+    private String getRedirectUrl(Notification notif) {
+        switch (notif.getType()) {
+            case Notification.NOUVEAU_MESSAGE:
+                return "/app/message";
+            case Notification.NOUVEAU_MATCH:
+                return "/app/match";
+            case Notification.LIKE_RECU:
+            case Notification.VISITE_PROFIL:
+                // Extraire l'ID de l'utilisateur depuis le contenu si possible
+                return "/app/message";
+            case Notification.ABONNEMENT_EXPIRE:
+                return "/app/subscription";
+            default:
+                return "/app/notifications";
+        }
     }
 }

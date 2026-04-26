@@ -29,6 +29,12 @@
             </div>
         </c:if>
 
+        <c:if test="${param.error == '3'}">
+            <div class="alert alert-danger">
+                &#9888; Le mot de passe est trop faible. Il doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.
+            </div>
+        </c:if>
+
         <form action="${ctx}/register" method="post">
             <div class="form-row">
                 <div class="form-group">
@@ -39,7 +45,6 @@
                     <label for="nom">Nom *</label>
                     <input type="text" id="nom" name="nom" class="form-control" placeholder="Dupont" required>
                 </div>
-            </div>
 
             <div class="form-group">
                 <label for="email">Adresse email *</label>
@@ -49,13 +54,12 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="password">Mot de passe *</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="••••••••" required minlength="6">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="••••••••" required minlength="8">
                 </div>
                 <div class="form-group">
                     <label for="confirm_password">Confirmer *</label>
                     <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="••••••••" required>
                 </div>
-            </div>
 
             <div class="form-row">
                 <div class="form-group">
@@ -71,7 +75,6 @@
                         <option value="AUTRE">Autre</option>
                     </select>
                 </div>
-            </div>
 
             <div class="form-group">
                 <label for="localisation">Localisation (ville)</label>
@@ -90,7 +93,5 @@
             <p>Déjà inscrit ? <a href="${ctx}/login.jsp">Se connecter ici</a></p>
             <p><a href="${ctx}/index.html">&#8592; Retour à l'accueil</a></p>
         </div>
-    </div>
 </body>
 </html>
-

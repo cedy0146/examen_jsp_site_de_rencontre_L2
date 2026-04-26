@@ -1,5 +1,7 @@
 package com.rencontre.controller;
 
+import com.rencontre.dao.MatchDAO;
+import com.rencontre.model.Match;
 import com.rencontre.model.Utilisateur;
 import com.rencontre.service.MatchingService;
 import com.rencontre.service.NotificationService;
@@ -17,6 +19,7 @@ public class MatchServlet extends HttpServlet {
 
     private MatchingService matchingService = new MatchingService();
     private NotificationService notificationService = new NotificationService();
+    private MatchDAO matchDAO = new MatchDAO();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -53,8 +56,14 @@ public class MatchServlet extends HttpServlet {
         String action = req.getParameter("action");
         int matchId = Integer.parseInt(req.getParameter("matchId"));
 
-        if ("accept".equals(action)) {
-            matchingService.acceptMatch(matchId);
+if ("accept".equals(action)) {
+            Match match = matchDAO.findById(matchId);
+            if (match != null) {
+                matchingService.acceptMatch(matchId);
+                // Déterminer l'autre utilisateur pour lui envoyer une notification
+                int otherUserId = (match.getUtilisateur1Id() == user.getId()) ? match.getUtilisateur2Id() : match.getUtilisateur1Id();
+                notificationService.notifyNewMatch(otherUserId, user.getNomComplet());
+            }
         } else if ("refuse".equals(action)) {
             matchingService.refuseMatch(matchId);
         } else if ("dejaRencontre".equals(action)) {

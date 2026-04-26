@@ -145,7 +145,6 @@ public class MatchingService {
 
         boolean ok = matchDAO.acceptMatch(matchId);
         if (ok) {
-            int otherId = (m.getUtilisateur1Id() == m.getUtilisateur2Id()) ? m.getUtilisateur2Id() : m.getUtilisateur1Id();
             // Notifier les deux
             notificationDAO.create(new Notification(
                 m.getUtilisateur1Id(),

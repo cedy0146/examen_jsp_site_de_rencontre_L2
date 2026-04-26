@@ -71,5 +71,29 @@ public class PasswordUtil {
         random.nextBytes(token);
         return Base64.getUrlEncoder().withoutPadding().encodeToString(token);
     }
-}
 
+    /**
+     * Vérifie si un mot de passe respecte les règles de complexité.
+     * Au moins : 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère spécial, 8 caractères minimum.
+     * @param password Le mot de passe à vérifier
+     * @return true si le mot de passe est valide
+     */
+    public static boolean isPasswordValid(String password) {
+        if (password == null || password.length() < 8) {
+            return false;
+        }
+        boolean hasLower = password.matches(".*[a-z].*");
+        boolean hasUpper = password.matches(".*[A-Z].*");
+        boolean hasDigit = password.matches(".*[0-9].*");
+        boolean hasSpecial = password.matches(".*[!@#$%^&*(),.?\":{}|<>].*");
+        return hasLower && hasUpper && hasDigit && hasSpecial;
+    }
+
+    /**
+     * Retourne un message décrivant les règles de complexité du mot de passe.
+     * @return Message d'erreur descriptif
+     */
+    public static String getPasswordRulesMessage() {
+        return "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.";
+    }
+}

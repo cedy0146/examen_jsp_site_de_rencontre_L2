@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="com.rencontre.service.NotificationService" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <c:set var="user" value="${sessionScope.utilisateur}" />
 <!DOCTYPE html>
@@ -9,6 +10,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${param.pageTitle} - Coup de Foudre</title>
     <link rel="stylesheet" href="${ctx}/assets/css/style.css">
+    <style>
+        .badge-notification {
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            padding: 1px 5px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-left: 3px;
+            min-width: 16px;
+            display: inline-block;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <nav class="main-nav">
@@ -21,7 +36,14 @@
                         <a href="${ctx}/app/search" class="nav-link ${param.pageTitle == 'Recherche' ? 'active' : ''}">&#128269; Recherche</a>
                         <a href="${ctx}/app/match" class="nav-link ${param.pageTitle == 'Matchs' ? 'active' : ''}">&#128150; Matchs</a>
                         <a href="${ctx}/app/message" class="nav-link ${param.pageTitle == 'Messages' ? 'active' : ''}">&#128172; Messages</a>
-                        <a href="${ctx}/app/notifications" class="nav-link ${param.pageTitle == 'Notifications' ? 'active' : ''}">&#128276; Notifications</a>
+                        <c:set var="notifService" value="<%= new NotificationService() %>" />
+                        <c:set var="unreadCount" value="${notifService.getUnreadCount(user.id)}" />
+                        <a href="${ctx}/app/notifications" class="nav-link ${param.pageTitle == 'Notifications' ? 'active' : ''}">
+                            &#128276; Notifications
+                            <c:if test="${unreadCount gt 0}">
+                                <span class="badge-notification">${unreadCount}</span>
+                            </c:if>
+                        </a>
                         <a href="${ctx}/app/profile" class="nav-link ${param.pageTitle == 'Mon Profil' ? 'active' : ''}">&#128100; Profil</a>
                         <c:if test="${user.admin}">
                             <a href="${ctx}/app/admin" class="nav-link ${param.pageTitle == 'Administration' ? 'active' : ''}">&#9881; Admin</a>
@@ -37,5 +59,6 @@
                     </c:otherwise>
                 </c:choose>
             </div>
+        </div>
     </nav>
     <main class="main-content">

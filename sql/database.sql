@@ -193,15 +193,15 @@ INSERT INTO centres_interet (nom, categorie, description) VALUES
 
 -- Utilisateur admin
 INSERT INTO utilisateurs (email, mot_de_passe, nom, prenom, date_naissance, sexe, localisation, role, bio)
-VALUES ('admin@rencontre.com', 'admin123', 'Admin', 'System', '1990-01-01', 'HOMME', 'Paris', 'ADMIN', 'Administrateur du site');
+VALUES ('admin@rencontre.com', 'Admin@2026!', 'Admin', 'System', '1990-01-01', 'HOMME', 'Paris', 'ADMIN', 'Administrateur du site');
 
 -- Utilisateurs de test
 INSERT INTO utilisateurs (email, mot_de_passe, nom, prenom, date_naissance, sexe, localisation, bio) VALUES
-('jean.dupont@email.com', 'jean123', 'Dupont', 'Jean', '1992-05-15', 'HOMME', 'Paris', 'Passionné de sport et de voyages'),
-('marie.martin@email.com', 'marie123', 'Martin', 'Marie', '1995-08-22', 'FEMME', 'Lyon', 'Amoureuse de la musique et de la nature'),
-('pierre.bernard@email.com', 'pierre123', 'Bernard', 'Pierre', '1988-12-03', 'HOMME', 'Marseille', 'Développeur et gamer dans l''âme'),
-('sophie.petit@email.com', 'sophie123', 'Petit', 'Sophie', '1993-04-10', 'FEMME', 'Paris', 'Photographe amateur et cinéphile'),
-('lucas.moreau@email.com', 'lucas123', 'Moreau', 'Lucas', '1990-11-28', 'HOMME', 'Lyon', 'Chef cuisinier et amateur de lecture');
+('jean.dupont@email.com', 'Jean@Dupont1', 'Dupont', 'Jean', '1992-05-15', 'HOMME', 'Paris', 'Passionné de sport et de voyages'),
+('marie.martin@email.com', 'Marie@Martin2', 'Martin', 'Marie', '1995-08-22', 'FEMME', 'Lyon', 'Amoureuse de la musique et de la nature'),
+('pierre.bernard@email.com', 'Pierre@Bernard3', 'Bernard', 'Pierre', '1988-12-03', 'HOMME', 'Marseille', 'Développeur et gamer dans l''âme'),
+('sophie.petit@email.com', 'Sophie@Petit4', 'Petit', 'Sophie', '1993-04-10', 'FEMME', 'Paris', 'Photographe amateur et cinéphile'),
+('lucas.moreau@email.com', 'Lucas@Moreau5', 'Moreau', 'Lucas', '1990-11-28', 'HOMME', 'Lyon', 'Chef cuisinier et amateur de lecture');
 
 -- Centres d'intérêt des utilisateurs
 INSERT INTO utilisateur_interets (utilisateur_id, interet_id) VALUES

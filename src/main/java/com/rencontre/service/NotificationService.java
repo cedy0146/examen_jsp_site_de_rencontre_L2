@@ -56,6 +56,14 @@ public class NotificationService {
         ));
     }
 
+public boolean notifyNewMatch(int utilisateurId, String matchNom) {
+        return notificationDAO.create(new Notification(
+            utilisateurId,
+            Notification.NOUVEAU_MATCH,
+            "Nouveau match avec " + matchNom
+        ));
+    }
+
     public boolean notifyAbonnementExpire(int utilisateurId) {
         return notificationDAO.create(new Notification(
             utilisateurId,
