@@ -991,3 +991,17 @@ select.form-control {
     }
 }
 
+/* ============ BADGE NOTIFICATION ============ */
+.badge-notification {
+    background-color: #e74c3c;
+    color: white;
+    border-radius: 50%;
+    padding: 1px 5px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    margin-left: 3px;
+    min-width: 16px;
+    display: inline-block;
+    text-align: center;
+}
+

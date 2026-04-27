@@ -10,20 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${param.pageTitle} - Coup de Foudre</title>
     <link rel="stylesheet" href="${ctx}/assets/css/style.css">
-    <style>
-        .badge-notification {
-            background-color: #e74c3c;
-            color: white;
-            border-radius: 50%;
-            padding: 1px 5px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            margin-left: 3px;
-            min-width: 16px;
-            display: inline-block;
-            text-align: center;
-        }
-    </style>
 </head>
 <body>
     <nav class="main-nav">
