@@ -30,13 +30,13 @@
 
         <c:choose>
             <c:when test="${not empty partners}">
-                <c:forEach var="partnerId" items="${partners}">
-                    <a href="${ctx}/app/message?action=conversation&partnerId=${partnerId}"
-                       class="conversation-item ${param.partnerId == partnerId ? 'active' : ''}">
+                <c:forEach var="partner" items="${partners}">
+                    <a href="${ctx}/app/message?action=conversation&partnerId=${partner.id}"
+                       class="conversation-item ${param.partnerId == partner.id ? 'active' : ''}">
                         <img src="${ctx}/assets/images/default-avatar.png" class="profile-photo-sm" alt="">
                         <div class="conversation-info">
-                            <h4>Utilisateur #${partnerId}</h4>
-                            <p class="text-muted">Cliquez pour voir</p>
+                            <h4>${partner.prenom} ${partner.nom}</h4>
+                            <p class="text-muted">${partner.localisation != null ? partner.localisation : 'Cliquez pour voir'}</p>
                         </div>
                     </a>
                 </c:forEach>
@@ -74,7 +74,7 @@
                                 <div class="message ${msg.expediteurId == currentUser.id ? 'sent' : 'received'}">
                                     <div>${msg.contenu}</div>
                                     <div class="message-time">
-                                        <fmt:formatDate value="${msg.dateEnvoi}" pattern="dd/MM HH:mm"/>
+                                        <fmt:formatDate value="${msg.dateEnvoiDate}" pattern="dd/MM HH:mm"/>
                                         <c:if test="${msg.expediteurId == currentUser.id}">
                                             ${msg.lu ? '&#10003;&#10003;' : '&#10003;'}
                                         </c:if>

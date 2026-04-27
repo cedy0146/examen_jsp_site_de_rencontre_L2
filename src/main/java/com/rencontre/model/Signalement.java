@@ -40,6 +40,14 @@ public class Signalement {
     public LocalDateTime getDateSignalement() { return dateSignalement; }
     public void setDateSignalement(LocalDateTime dateSignalement) { this.dateSignalement = dateSignalement; }
     
+    /**
+     * Retourne la date de signalement sous forme de java.util.Date pour la compatibilité JSTL 1.2.
+     */
+    public java.util.Date getDateSignalementDate() {
+        if (dateSignalement == null) return null;
+        return java.sql.Timestamp.valueOf(dateSignalement);
+    }
+    
     public Utilisateur getSignalant() { return signalant; }
     public void setSignalant(Utilisateur signalant) { this.signalant = signalant; }
     

@@ -37,8 +37,24 @@ public class Abonnement {
     public LocalDateTime getDateDebut() { return dateDebut; }
     public void setDateDebut(LocalDateTime dateDebut) { this.dateDebut = dateDebut; }
     
+    /**
+     * Retourne la date de début sous forme de java.util.Date pour la compatibilité JSTL 1.2.
+     */
+    public java.util.Date getDateDebutDate() {
+        if (dateDebut == null) return null;
+        return java.sql.Timestamp.valueOf(dateDebut);
+    }
+    
     public LocalDateTime getDateFin() { return dateFin; }
     public void setDateFin(LocalDateTime dateFin) { this.dateFin = dateFin; }
+    
+    /**
+     * Retourne la date de fin sous forme de java.util.Date pour la compatibilité JSTL 1.2.
+     */
+    public java.util.Date getDateFinDate() {
+        if (dateFin == null) return null;
+        return java.sql.Timestamp.valueOf(dateFin);
+    }
     
     public String getStatut() { return statut; }
     public void setStatut(String statut) { this.statut = statut; }

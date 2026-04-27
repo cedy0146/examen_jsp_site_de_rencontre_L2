@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,7 +58,15 @@ public class MessageServlet extends HttpServlet {
             req.setAttribute("partner", partner);
             req.getRequestDispatcher("/WEB-INF/views/messages.jsp").forward(req, resp);
         } else {
-            List<Integer> partners = messageDAO.findConversationPartners(user.getId());
+            List<Integer> partnerIds = messageDAO.findConversationPartners(user.getId());
+            List<Utilisateur> partners = new ArrayList<>();
+            for (Integer pid : partnerIds) {
+                Utilisateur u = utilisateurDAO.findById(pid);
+                if (u != null) {
+                    utilisateurDAO.loadRelations(u); // Charger les relations de l'utilisateur
+                    partners.add(u);
+                }
+            }
             req.setAttribute("partners", partners);
             req.getRequestDispatcher("/WEB-INF/views/messages.jsp").forward(req, resp);
         }

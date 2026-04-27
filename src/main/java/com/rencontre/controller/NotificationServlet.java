@@ -40,7 +40,7 @@ public class NotificationServlet extends HttpServlet {
                 
                 if (notif != null) {
                     notificationService.markAsRead(notificationId);
-                    // Rediriger selon le type de notification
+                    // Rediriger vers l'URL réelle de la notification
                     String redirectUrl = getRedirectUrl(notif);
                     resp.sendRedirect(req.getContextPath() + redirectUrl);
                     return;
@@ -85,13 +85,13 @@ public class NotificationServlet extends HttpServlet {
             case Notification.NOUVEAU_MATCH:
                 return "/app/match";
             case Notification.LIKE_RECU:
+                return "/app/match?action=suggestions";
             case Notification.VISITE_PROFIL:
-                // Extraire l'ID de l'utilisateur depuis le contenu si possible
-                return "/app/message";
+                return "/app/profile";
             case Notification.ABONNEMENT_EXPIRE:
                 return "/app/subscription";
             default:
-                return "/app/notifications";
+                return "/app/dashboard";
         }
     }
 }

@@ -137,7 +137,7 @@
                         </div>
                         <div class="notification-content">
                             <p>${notif.contenu}</p>
-                            <span class="notification-time"><fmt:formatDate value="${notif.dateCreation}" pattern="dd/MM/yyyy HH:mm"/></span>
+<span class="notification-time"><fmt:formatDate value="${notif.dateCreationDate}" pattern="dd/MM/yyyy HH:mm"/></span>
                         </div>
                     </div>
                 </c:if>

@@ -41,7 +41,7 @@
                             <td>
                                 <span class="badge badge-${s.statut == 'EN_ATTENTE' ? 'warning' : s.statut == 'TRAITE' ? 'success' : 'danger'}">${s.statut}</span>
                             </td>
-                            <td><fmt:formatDate value="${s.dateSignalement}" pattern="dd/MM/yyyy HH:mm"/></td>
+<td><fmt:formatDate value="${s.dateSignalementDate}" pattern="dd/MM/yyyy HH:mm"/></td>
                             <td>
                                 <c:if test="${s.statut == 'EN_ATTENTE'}">
                                     <form action="${ctx}/app/admin" method="post" style="display:inline;">

@@ -91,7 +91,7 @@
                     <p><strong>Type :</strong> <span class="badge badge-${user.abonnement.type == 'VIP' ? 'warning' : user.abonnement.type == 'PREMIUM' ? 'info' : 'secondary'}">${user.abonnement.type}</span></p>
                     <p><strong>Statut :</strong> <span class="badge badge-${user.abonnement.actif ? 'success' : 'danger'}">${user.abonnement.actif ? 'ACTIF' : user.abonnement.statut}</span></p>
                     <c:if test="${not empty user.abonnement.dateFin}">
-                        <p><strong>Expire le :</strong> <fmt:formatDate value="${user.abonnement.dateFin}" pattern="dd/MM/yyyy"/></p>
+<p><strong>Expire le :</strong> <fmt:formatDate value="${user.abonnement.dateFinDate}" pattern="dd/MM/yyyy"/></p>
                     </c:if>
                     <a href="${ctx}/app/subscription" class="btn btn-sm btn-outline-primary">Gérer mon abonnement</a>
                 </c:when>

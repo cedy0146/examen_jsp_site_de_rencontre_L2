@@ -28,9 +28,9 @@
                     <div>
                         <span class="badge badge-${ab.type == 'VIP' ? 'warning' : ab.type == 'PREMIUM' ? 'info' : 'secondary'}">${ab.type}</span>
                         <span class="badge badge-${ab.actif ? 'success' : 'danger'}">${ab.actif ? 'ACTIF' : ab.statut}</span>
-                        <p class="mt-1"><strong>Du :</strong> <fmt:formatDate value="${ab.dateDebut}" pattern="dd/MM/yyyy"/></p>
+                        <p class="mt-1"><strong>Du :</strong> <fmt:formatDate value="${ab.dateDebutDate}" pattern="dd/MM/yyyy"/></p>
                         <c:if test="${not empty ab.dateFin}">
-                            <p><strong>Au :</strong> <fmt:formatDate value="${ab.dateFin}" pattern="dd/MM/yyyy"/></p>
+                            <p><strong>Au :</strong> <fmt:formatDate value="${ab.dateFinDate}" pattern="dd/MM/yyyy"/></p>
                         </c:if>
                         <p><strong>Prix :</strong> ${ab.prix} €</p>
                     </div>

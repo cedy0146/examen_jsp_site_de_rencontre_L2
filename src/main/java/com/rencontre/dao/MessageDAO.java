@@ -105,8 +105,9 @@ public class MessageDAO {
             ps.setString(3, m.getContenu());
             int affected = ps.executeUpdate();
             if (affected > 0) {
-                ResultSet rs = ps.getGeneratedKeys();
-                if (rs.next()) m.setId(rs.getInt(1));
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) m.setId(rs.getInt(1));
+                }
                 return true;
             }
         } catch (SQLException e) {

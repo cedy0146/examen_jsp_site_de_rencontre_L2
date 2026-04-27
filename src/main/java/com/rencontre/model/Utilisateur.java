@@ -124,11 +124,35 @@ public class Utilisateur {
     public LocalDateTime getDateInscription() { return dateInscription; }
     public void setDateInscription(LocalDateTime dateInscription) { this.dateInscription = dateInscription; }
     
+    /**
+     * Retourne la date d'inscription sous forme de java.util.Date pour la compatibilité JSTL 1.2.
+     */
+    public java.util.Date getDateInscriptionDate() {
+        if (dateInscription == null) return null;
+        return java.sql.Timestamp.valueOf(dateInscription);
+    }
+    
     public LocalDateTime getDerniereConnexion() { return derniereConnexion; }
     public void setDerniereConnexion(LocalDateTime derniereConnexion) { this.derniereConnexion = derniereConnexion; }
     
+    /**
+     * Retourne la dernière connexion sous forme de java.util.Date pour la compatibilité JSTL 1.2.
+     */
+    public java.util.Date getDerniereConnexionDate() {
+        if (derniereConnexion == null) return null;
+        return java.sql.Timestamp.valueOf(derniereConnexion);
+    }
+    
     public LocalDateTime getDerniereActivite() { return derniereActivite; }
     public void setDerniereActivite(LocalDateTime derniereActivite) { this.derniereActivite = derniereActivite; }
+    
+    /**
+     * Retourne la dernière activité sous forme de java.util.Date pour la compatibilité JSTL 1.2.
+     */
+    public java.util.Date getDerniereActiviteDate() {
+        if (derniereActivite == null) return null;
+        return java.sql.Timestamp.valueOf(derniereActivite);
+    }
     
     public String getVisibilite() { return visibilite; }
     public void setVisibilite(String visibilite) { this.visibilite = visibilite; }
@@ -143,4 +167,3 @@ public class Utilisateur {
     public Abonnement getAbonnement() { return abonnement; }
     public void setAbonnement(Abonnement abonnement) { this.abonnement = abonnement; }
 }
-

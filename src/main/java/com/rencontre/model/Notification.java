@@ -46,5 +46,13 @@ public class Notification {
     
     public LocalDateTime getDateCreation() { return dateCreation; }
     public void setDateCreation(LocalDateTime dateCreation) { this.dateCreation = dateCreation; }
+    
+    /**
+     * Retourne la date de création sous forme de java.util.Date pour la compatibilité JSTL 1.2.
+     */
+    public java.util.Date getDateCreationDate() {
+        if (dateCreation == null) return null;
+        return java.sql.Timestamp.valueOf(dateCreation);
+    }
 }
 

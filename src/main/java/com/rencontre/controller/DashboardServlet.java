@@ -36,21 +36,33 @@ public class DashboardServlet extends HttpServlet {
         try {
             // Charger les statistiques
             Statistiques stats = statistiquesDAO.findByUtilisateurId(user.getId());
-            req.setAttribute("stats", stats);
+            if (stats != null) req.setAttribute("stats", stats);
 
             // Charger les suggestions de matchs
-            List<Match> suggestions = matchDAO.findSuggestionsForUser(user.getId());
-            for (Match m : suggestions) {
-                matchDAO.loadUsers(m);
+            try {
+                List<Match> suggestions = matchDAO.findSuggestionsForUser(user.getId());
+                if (suggestions != null) {
+                    for (Match m : suggestions) {
+                        matchDAO.loadUsers(m);
+                    }
+                    req.setAttribute("suggestions", suggestions);
+                }
+            } catch (Exception e) {
+                System.err.println("Erreur suggestions: " + e.getMessage());
             }
-            req.setAttribute("suggestions", suggestions);
 
             // Charger les matchs acceptés
-            List<Match> matches = matchDAO.findAcceptedByUtilisateurId(user.getId());
-            for (Match m : matches) {
-                matchDAO.loadUsers(m);
+            try {
+                List<Match> matches = matchDAO.findAcceptedByUtilisateurId(user.getId());
+                if (matches != null) {
+                    for (Match m : matches) {
+                        matchDAO.loadUsers(m);
+                    }
+                    req.setAttribute("matches", matches);
+                }
+            } catch (Exception e) {
+                System.err.println("Erreur matches: " + e.getMessage());
             }
-            req.setAttribute("matches", matches);
 
             // Charger les notifications récentes
             List<Notification> notifications = notificationDAO.findByUtilisateurId(user.getId());
@@ -59,9 +71,7 @@ public class DashboardServlet extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(req, resp);
         } catch (Exception e) {
             e.printStackTrace();
-            req.setAttribute("errorMessage", "Erreur lors du chargement du tableau de bord : " + e.getMessage());
-            req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/app/notifications"); // Redirection de secours
         }
     }
 }
-

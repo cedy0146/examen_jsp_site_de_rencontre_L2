@@ -38,7 +38,7 @@
                     <div class="notification-content" style="flex:1;">
                         <p style="margin:0;"><strong>${notifTitle}</strong></p>
                         <p style="margin:0.25rem 0 0;color:var(--text-muted);">${notif.contenu}</p>
-                        <span class="notification-time" style="font-size:0.8rem;color:var(--text-muted);"><fmt:formatDate value="${notif.dateCreation}" pattern="dd/MM/yyyy HH:mm"/></span>
+<span class="notification-time" style="font-size:0.8rem;color:var(--text-muted);"><fmt:formatDate value="${notif.dateCreationDate}" pattern="dd/MM/yyyy HH:mm"/></span>
                     </div>
                     <form action="${ctx}/app/notifications" method="post" style="display:inline;margin-left:0.5rem;" onclick="event.stopPropagation();">
                         <input type="hidden" name="action" value="delete">

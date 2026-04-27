@@ -1,0 +1,426 @@
+src/main/java/com/rencontre/rest/RestUserServlet.java:8: error: package javax.servlet does not exist
+import javax.servlet.ServletException;
+                    ^
+src/main/java/com/rencontre/rest/RestUserServlet.java:9: error: package javax.servlet.annotation does not exist
+import javax.servlet.annotation.WebServlet;
+                               ^
+src/main/java/com/rencontre/rest/RestUserServlet.java:10: error: package javax.servlet.http does not exist
+import javax.servlet.http.*;
+^
+src/main/java/com/rencontre/rest/RestUserServlet.java:19: error: cannot find symbol
+public class RestUserServlet extends HttpServlet {
+                                     ^
+  symbol: class HttpServlet
+src/main/java/com/rencontre/rest/RestUserServlet.java:18: error: cannot find symbol
+@WebServlet("/api/users/*")
+ ^
+  symbol: class WebServlet
+src/main/java/com/rencontre/rest/RestUserServlet.java:24: error: cannot find symbol
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                         ^
+  symbol:   class HttpServletRequest
+  location: class RestUserServlet
+src/main/java/com/rencontre/rest/RestUserServlet.java:24: error: cannot find symbol
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                 ^
+  symbol:   class HttpServletResponse
+  location: class RestUserServlet
+src/main/java/com/rencontre/rest/RestUserServlet.java:24: error: cannot find symbol
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                                                  ^
+  symbol:   class ServletException
+  location: class RestUserServlet
+src/main/java/com/rencontre/controller/ProfileServlet.java:7: error: package javax.servlet does not exist
+import javax.servlet.ServletException;
+                    ^
+src/main/java/com/rencontre/controller/ProfileServlet.java:8: error: package javax.servlet.annotation does not exist
+import javax.servlet.annotation.MultipartConfig;
+                               ^
+src/main/java/com/rencontre/controller/ProfileServlet.java:9: error: package javax.servlet.annotation does not exist
+import javax.servlet.annotation.WebServlet;
+                               ^
+src/main/java/com/rencontre/controller/ProfileServlet.java:10: error: package javax.servlet.http does not exist
+import javax.servlet.http.*;
+^
+src/main/java/com/rencontre/controller/ProfileServlet.java:25: error: cannot find symbol
+public class ProfileServlet extends HttpServlet {
+                                    ^
+  symbol: class HttpServlet
+src/main/java/com/rencontre/controller/ProfileServlet.java:23: error: cannot find symbol
+@WebServlet("/app/profile")
+ ^
+  symbol: class WebServlet
+src/main/java/com/rencontre/controller/ProfileServlet.java:24: error: cannot find symbol
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 25 * 1024 * 1024)
+ ^
+  symbol: class MultipartConfig
+src/main/java/com/rencontre/controller/ProfileServlet.java:35: error: cannot find symbol
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                         ^
+  symbol:   class HttpServletRequest
+  location: class ProfileServlet
+src/main/java/com/rencontre/controller/ProfileServlet.java:35: error: cannot find symbol
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                 ^
+  symbol:   class HttpServletResponse
+  location: class ProfileServlet
+src/main/java/com/rencontre/controller/ProfileServlet.java:35: error: cannot find symbol
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                                                  ^
+  symbol:   class ServletException
+  location: class ProfileServlet
+src/main/java/com/rencontre/controller/ProfileServlet.java:93: error: cannot find symbol
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                          ^
+  symbol:   class HttpServletRequest
+  location: class ProfileServlet
+src/main/java/com/rencontre/controller/ProfileServlet.java:93: error: cannot find symbol
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                  ^
+  symbol:   class HttpServletResponse
+  location: class ProfileServlet
+src/main/java/com/rencontre/controller/ProfileServlet.java:93: error: cannot find symbol
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                                                   ^
+  symbol:   class ServletException
+  location: class ProfileServlet
+src/main/java/com/rencontre/controller/MessageServlet.java:9: error: package javax.servlet does not exist
+import javax.servlet.ServletException;
+                    ^
+src/main/java/com/rencontre/controller/MessageServlet.java:10: error: package javax.servlet.annotation does not exist
+import javax.servlet.annotation.WebServlet;
+                               ^
+src/main/java/com/rencontre/controller/MessageServlet.java:11: error: package javax.servlet.http does not exist
+import javax.servlet.http.*;
+^
+src/main/java/com/rencontre/controller/MessageServlet.java:20: error: cannot find symbol
+public class MessageServlet extends HttpServlet {
+                                    ^
+  symbol: class HttpServlet
+src/main/java/com/rencontre/controller/MessageServlet.java:19: error: cannot find symbol
+@WebServlet("/app/message")
+ ^
+  symbol: class WebServlet
+src/main/java/com/rencontre/controller/MessageServlet.java:27: error: cannot find symbol
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                         ^
+  symbol:   class HttpServletRequest
+  location: class MessageServlet
+src/main/java/com/rencontre/controller/MessageServlet.java:27: error: cannot find symbol
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                 ^
+  symbol:   class HttpServletResponse
+  location: class MessageServlet
+src/main/java/com/rencontre/controller/MessageServlet.java:27: error: cannot find symbol
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                                                  ^
+  symbol:   class ServletException
+  location: class MessageServlet
+src/main/java/com/rencontre/controller/MessageServlet.java:76: error: cannot find symbol
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                          ^
+  symbol:   class HttpServletRequest
+  location: class MessageServlet
+src/main/java/com/rencontre/controller/MessageServlet.java:76: error: cannot find symbol
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                  ^
+  symbol:   class HttpServletResponse
+  location: class MessageServlet
+src/main/java/com/rencontre/controller/MessageServlet.java:76: error: cannot find symbol
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                                                   ^
+  symbol:   class ServletException
+  location: class MessageServlet
+src/main/java/com/rencontre/controller/InteractionServlet.java:9: error: package javax.servlet does not exist
+import javax.servlet.ServletException;
+                    ^
+src/main/java/com/rencontre/controller/InteractionServlet.java:10: error: package javax.servlet.annotation does not exist
+import javax.servlet.annotation.WebServlet;
+                               ^
+src/main/java/com/rencontre/controller/InteractionServlet.java:11: error: package javax.servlet.http does not exist
+import javax.servlet.http.*;
+^
+src/main/java/com/rencontre/controller/InteractionServlet.java:18: error: cannot find symbol
+public class InteractionServlet extends HttpServlet {
+                                        ^
+  symbol: class HttpServlet
+src/main/java/com/rencontre/controller/InteractionServlet.java:17: error: cannot find symbol
+@WebServlet("/app/interaction")
+ ^
+  symbol: class WebServlet
+src/main/java/com/rencontre/controller/InteractionServlet.java:25: error: cannot find symbol
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                          ^
+  symbol:   class HttpServletRequest
+  location: class InteractionServlet
+src/main/java/com/rencontre/controller/InteractionServlet.java:25: error: cannot find symbol
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                  ^
+  symbol:   class HttpServletResponse
+  location: class InteractionServlet
+src/main/java/com/rencontre/controller/InteractionServlet.java:25: error: cannot find symbol
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                                                   ^
+  symbol:   class ServletException
+  location: class InteractionServlet
+src/main/java/com/rencontre/controller/MatchServlet.java:9: error: package javax.servlet does not exist
+import javax.servlet.ServletException;
+                    ^
+src/main/java/com/rencontre/controller/MatchServlet.java:10: error: package javax.servlet.annotation does not exist
+import javax.servlet.annotation.WebServlet;
+                               ^
+src/main/java/com/rencontre/controller/MatchServlet.java:11: error: package javax.servlet.http does not exist
+import javax.servlet.http.*;
+^
+src/main/java/com/rencontre/controller/MatchServlet.java:18: error: cannot find symbol
+public class MatchServlet extends HttpServlet {
+                                  ^
+  symbol: class HttpServlet
+src/main/java/com/rencontre/controller/MatchServlet.java:17: error: cannot find symbol
+@WebServlet("/app/match")
+ ^
+  symbol: class WebServlet
+src/main/java/com/rencontre/controller/MatchServlet.java:25: error: cannot find symbol
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                         ^
+  symbol:   class HttpServletRequest
+  location: class MatchServlet
+src/main/java/com/rencontre/controller/MatchServlet.java:25: error: cannot find symbol
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                 ^
+  symbol:   class HttpServletResponse
+  location: class MatchServlet
+src/main/java/com/rencontre/controller/MatchServlet.java:25: error: cannot find symbol
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                                                  ^
+  symbol:   class ServletException
+  location: class MatchServlet
+src/main/java/com/rencontre/controller/MatchServlet.java:48: error: cannot find symbol
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                          ^
+  symbol:   class HttpServletRequest
+  location: class MatchServlet
+src/main/java/com/rencontre/controller/MatchServlet.java:48: error: cannot find symbol
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                  ^
+  symbol:   class HttpServletResponse
+  location: class MatchServlet
+src/main/java/com/rencontre/controller/MatchServlet.java:48: error: cannot find symbol
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                                                   ^
+  symbol:   class ServletException
+  location: class MatchServlet
+src/main/java/com/rencontre/controller/AuthServlet.java:7: error: package javax.servlet does not exist
+import javax.servlet.ServletException;
+                    ^
+src/main/java/com/rencontre/controller/AuthServlet.java:8: error: package javax.servlet.annotation does not exist
+import javax.servlet.annotation.WebServlet;
+                               ^
+src/main/java/com/rencontre/controller/AuthServlet.java:9: error: package javax.servlet.http does not exist
+import javax.servlet.http.*;
+^
+src/main/java/com/rencontre/controller/AuthServlet.java:22: error: cannot find symbol
+public class AuthServlet extends HttpServlet {
+                                 ^
+  symbol: class HttpServlet
+src/main/java/com/rencontre/controller/AuthServlet.java:21: error: cannot find symbol
+@WebServlet(urlPatterns = {"/login", "/logout", "/register", "/forgot-password", "/reset-password", "/delete-account"})
+ ^
+  symbol: class WebServlet
+src/main/java/com/rencontre/controller/AuthServlet.java:27: error: cannot find symbol
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                          ^
+  symbol:   class HttpServletRequest
+  location: class AuthServlet
+src/main/java/com/rencontre/controller/AuthServlet.java:27: error: cannot find symbol
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                  ^
+  symbol:   class HttpServletResponse
+  location: class AuthServlet
+src/main/java/com/rencontre/controller/AuthServlet.java:27: error: cannot find symbol
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                                                   ^
+  symbol:   class ServletException
+  location: class AuthServlet
+src/main/java/com/rencontre/controller/AuthServlet.java:43: error: cannot find symbol
+    private void handleLogin(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+                             ^
+  symbol:   class HttpServletRequest
+  location: class AuthServlet
+src/main/java/com/rencontre/controller/AuthServlet.java:43: error: cannot find symbol
+    private void handleLogin(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+                                                     ^
+  symbol:   class HttpServletResponse
+  location: class AuthServlet
+src/main/java/com/rencontre/controller/AuthServlet.java:59: error: cannot find symbol
+    private void handleRegister(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+                                ^
+  symbol:   class HttpServletRequest
+  location: class AuthServlet
+src/main/java/com/rencontre/controller/AuthServlet.java:59: error: cannot find symbol
+    private void handleRegister(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+                                                        ^
+  symbol:   class HttpServletResponse
+  location: class AuthServlet
+src/main/java/com/rencontre/controller/AuthServlet.java:104: error: cannot find symbol
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                         ^
+  symbol:   class HttpServletRequest
+  location: class AuthServlet
+src/main/java/com/rencontre/controller/AuthServlet.java:104: error: cannot find symbol
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                 ^
+  symbol:   class HttpServletResponse
+  location: class AuthServlet
+src/main/java/com/rencontre/controller/AuthServlet.java:104: error: cannot find symbol
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                                                  ^
+  symbol:   class ServletException
+  location: class AuthServlet
+src/main/java/com/rencontre/controller/AuthServlet.java:120: error: cannot find symbol
+    private void handleForgotPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+                                      ^
+  symbol:   class HttpServletRequest
+  location: class AuthServlet
+src/main/java/com/rencontre/controller/AuthServlet.java:120: error: cannot find symbol
+    private void handleForgotPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+                                                              ^
+  symbol:   class HttpServletResponse
+  location: class AuthServlet
+src/main/java/com/rencontre/controller/AuthServlet.java:143: error: cannot find symbol
+    private void handleResetPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+                                     ^
+  symbol:   class HttpServletRequest
+  location: class AuthServlet
+src/main/java/com/rencontre/controller/AuthServlet.java:143: error: cannot find symbol
+    private void handleResetPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+                                                             ^
+  symbol:   class HttpServletResponse
+  location: class AuthServlet
+src/main/java/com/rencontre/controller/AuthServlet.java:179: error: cannot find symbol
+    private void handleDeleteAccount(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+                                     ^
+  symbol:   class HttpServletRequest
+  location: class AuthServlet
+src/main/java/com/rencontre/controller/AuthServlet.java:179: error: cannot find symbol
+    private void handleDeleteAccount(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+                                                             ^
+  symbol:   class HttpServletResponse
+  location: class AuthServlet
+src/main/java/com/rencontre/controller/SubscriptionServlet.java:7: error: package javax.servlet does not exist
+import javax.servlet.ServletException;
+                    ^
+src/main/java/com/rencontre/controller/SubscriptionServlet.java:8: error: package javax.servlet.annotation does not exist
+import javax.servlet.annotation.WebServlet;
+                               ^
+src/main/java/com/rencontre/controller/SubscriptionServlet.java:9: error: package javax.servlet.http does not exist
+import javax.servlet.http.*;
+^
+src/main/java/com/rencontre/controller/SubscriptionServlet.java:17: error: cannot find symbol
+public class SubscriptionServlet extends HttpServlet {
+                                         ^
+  symbol: class HttpServlet
+src/main/java/com/rencontre/controller/SubscriptionServlet.java:16: error: cannot find symbol
+@WebServlet("/app/subscription")
+ ^
+  symbol: class WebServlet
+src/main/java/com/rencontre/controller/SubscriptionServlet.java:22: error: cannot find symbol
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                         ^
+  symbol:   class HttpServletRequest
+  location: class SubscriptionServlet
+src/main/java/com/rencontre/controller/SubscriptionServlet.java:22: error: cannot find symbol
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                 ^
+  symbol:   class HttpServletResponse
+  location: class SubscriptionServlet
+src/main/java/com/rencontre/controller/SubscriptionServlet.java:22: error: cannot find symbol
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                                                  ^
+  symbol:   class ServletException
+  location: class SubscriptionServlet
+src/main/java/com/rencontre/controller/SubscriptionServlet.java:35: error: cannot find symbol
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                          ^
+  symbol:   class HttpServletRequest
+  location: class SubscriptionServlet
+src/main/java/com/rencontre/controller/SubscriptionServlet.java:35: error: cannot find symbol
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                  ^
+  symbol:   class HttpServletResponse
+  location: class SubscriptionServlet
+src/main/java/com/rencontre/controller/SubscriptionServlet.java:35: error: cannot find symbol
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                                                   ^
+  symbol:   class ServletException
+  location: class SubscriptionServlet
+src/main/java/com/rencontre/controller/AdminServlet.java:8: error: package javax.servlet does not exist
+import javax.servlet.ServletException;
+                    ^
+src/main/java/com/rencontre/controller/AdminServlet.java:9: error: package javax.servlet.annotation does not exist
+import javax.servlet.annotation.WebServlet;
+                               ^
+src/main/java/com/rencontre/controller/AdminServlet.java:10: error: package javax.servlet.http does not exist
+import javax.servlet.http.*;
+^
+src/main/java/com/rencontre/controller/AdminServlet.java:17: error: cannot find symbol
+public class AdminServlet extends HttpServlet {
+                                  ^
+  symbol: class HttpServlet
+src/main/java/com/rencontre/controller/AdminServlet.java:16: error: cannot find symbol
+@WebServlet("/app/admin")
+ ^
+  symbol: class WebServlet
+src/main/java/com/rencontre/controller/AdminServlet.java:24: error: cannot find symbol
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                         ^
+  symbol:   class HttpServletRequest
+  location: class AdminServlet
+src/main/java/com/rencontre/controller/AdminServlet.java:24: error: cannot find symbol
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                 ^
+  symbol:   class HttpServletResponse
+  location: class AdminServlet
+src/main/java/com/rencontre/controller/AdminServlet.java:24: error: cannot find symbol
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                                                  ^
+  symbol:   class ServletException
+  location: class AdminServlet
+src/main/java/com/rencontre/controller/AdminServlet.java:50: error: cannot find symbol
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                          ^
+  symbol:   class HttpServletRequest
+  location: class AdminServlet
+src/main/java/com/rencontre/controller/AdminServlet.java:50: error: cannot find symbol
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                  ^
+  symbol:   class HttpServletResponse
+  location: class AdminServlet
+src/main/java/com/rencontre/controller/AdminServlet.java:50: error: cannot find symbol
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                                                                                   ^
+  symbol:   class ServletException
+  location: class AdminServlet
+src/main/java/com/rencontre/controller/NotificationServlet.java:7: error: package javax.servlet does not exist
+import javax.servlet.ServletException;
+                    ^
+src/main/java/com/rencontre/controller/NotificationServlet.java:8: error: package javax.servlet.annotation does not exist
+import javax.servlet.annotation.WebServlet;
+                               ^
+src/main/java/com/rencontre/controller/NotificationServlet.java:9: error: package javax.servlet.http does not exist
+import javax.servlet.http.*;
+^
+src/main/java/com/rencontre/controller/NotificationServlet.java:16: error: cannot find symbol
+public class NotificationServlet extends HttpServlet {
+                                         ^
+  symbol: class HttpServlet
+src/main/java/com/rencontre/controller/NotificationServlet.java:15: error: cannot find symbol
+@WebServlet("/app/notifications")
+ ^
+  symbol: class WebServlet
+src/main/java/com/rencontre/controller/NotificationServlet.java:21: error: cannot find symbol
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                         ^
+  symbol:   class HttpServletRequest
+  location: class NotificationServlet
+100 errors

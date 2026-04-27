@@ -41,6 +41,14 @@ public class Message {
     public LocalDateTime getDateEnvoi() { return dateEnvoi; }
     public void setDateEnvoi(LocalDateTime dateEnvoi) { this.dateEnvoi = dateEnvoi; }
     
+    /**
+     * Retourne la date d'envoi sous forme de java.util.Date pour la compatibilité JSTL 1.2.
+     */
+    public java.util.Date getDateEnvoiDate() {
+        if (dateEnvoi == null) return null;
+        return java.sql.Timestamp.valueOf(dateEnvoi);
+    }
+    
     public boolean isLu() { return lu; }
     public void setLu(boolean lu) { this.lu = lu; }
     
