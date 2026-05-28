@@ -7,22 +7,22 @@
 </jsp:include>
 
 <div class="page-header">
-    <h1>&#128150; Vos matchs</h1>
+    <h1><i class="fa-solid fa-heart-circle-bolt"></i> Vos matchs</h1>
     <p>Gérez vos suggestions et vos connexions.</p>
 </div>
 
 <div class="tabs">
-    <a href="${ctx}/app/match" class="tab ${empty param.action || param.action == '' ? 'active' : ''}">Tout</a>
-    <a href="${ctx}/app/match?action=suggestions" class="tab ${param.action == 'suggestions' ? 'active' : ''}">Suggestions</a>
-    <a href="${ctx}/app/match?action=accepted" class="tab ${param.action == 'accepted' ? 'active' : ''}">Matchs acceptés</a>
+    <a href="${ctx}/app/match" class="tab ${empty param.action || param.action == '' ? 'active' : ''}"><i class="fa-solid fa-border-all"></i> Tout</a>
+    <a href="${ctx}/app/match?action=suggestions" class="tab ${param.action == 'suggestions' ? 'active' : ''}"><i class="fa-solid fa-lightbulb"></i> Suggestions</a>
+    <a href="${ctx}/app/match?action=accepted" class="tab ${param.action == 'accepted' ? 'active' : ''}"><i class="fa-solid fa-heart"></i> Matchs acceptés</a>
 </div>
 
 <!-- Suggestions en attente -->
 <c:if test="${empty param.action || param.action == 'suggestions' || param.action == ''}">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">&#128161; Suggestions en attente</h3>
-            <a href="${ctx}/app/match?action=suggestions" class="btn btn-sm btn-primary">&#128260; Rafraîchir</a>
+            <h3 class="card-title"><i class="fa-solid fa-lightbulb"></i> Suggestions en attente</h3>
+            <a href="${ctx}/app/match?action=suggestions" class="btn btn-sm btn-primary"><i class="fa-solid fa-rotate"></i> Rafraîchir</a>
         </div>
         <c:choose>
             <c:when test="${not empty suggestions}">
@@ -42,20 +42,21 @@
                             <div class="profile-actions">
                                 <form action="${ctx}/app/match" method="post" style="display:inline;">
                                     <input type="hidden" name="matchId" value="${match.id}">
-                                    <button type="submit" name="action" value="accept" class="btn btn-success btn-sm">&#128077; Accepter</button>
+                                    <button type="submit" name="action" value="accept" class="btn btn-success btn-sm"><i class="fa-solid fa-thumbs-up"></i> Accepter</button>
                                 </form>
                                 <form action="${ctx}/app/match" method="post" style="display:inline;">
                                     <input type="hidden" name="matchId" value="${match.id}">
-                                    <button type="submit" name="action" value="refuse" class="btn btn-danger btn-sm">&#10060;</button>
+                                    <button type="submit" name="action" value="refuse" class="btn btn-danger btn-sm"><i class="fa-solid fa-xmark"></i></button>
                                 </form>
                                 <a href="${ctx}/app/profile?action=view&id=${other.id}" class="btn btn-outline-primary btn-sm">Profil</a>
                             </div>
+                        </div>
                     </c:forEach>
                 </div>
             </c:when>
             <c:otherwise>
                 <div class="empty-state">
-                    <div class="empty-state-icon">&#128161;</div>
+                    <div class="empty-state-icon"><i class="fa-solid fa-lightbulb"></i></div>
                     <p>Aucune suggestion en attente.</p>
                     <a href="${ctx}/app/match?action=suggestions" class="btn btn-primary btn-sm">Générer des suggestions</a>
                 </div>
@@ -68,7 +69,7 @@
 <c:if test="${empty param.action || param.action == 'accepted' || param.action == ''}">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">&#128149; Matchs acceptés</h3>
+            <h3 class="card-title"><i class="fa-solid fa-heart"></i> Matchs acceptés</h3>
         </div>
         <c:choose>
             <c:when test="${not empty matches}">
@@ -83,20 +84,21 @@
                             <div class="profile-name">${other.prenom}, ${other.age} ans</div>
                             <div class="profile-info">${other.localisation}</div>
                             <div class="profile-actions">
-                                <a href="${ctx}/app/message?action=conversation&partnerId=${other.id}" class="btn btn-primary btn-sm">&#128172; Message</a>
+                                <a href="${ctx}/app/message?action=conversation&partnerId=${other.id}" class="btn btn-primary btn-sm"><i class="fa-solid fa-comment-dots"></i> Message</a>
                                 <a href="${ctx}/app/profile?action=view&id=${other.id}" class="btn btn-outline-primary btn-sm">Profil</a>
                                 <form action="${ctx}/app/match" method="post" style="display:inline;" 
                                       onsubmit="return confirm('Marquer comme déjà rencontré ?');">
                                     <input type="hidden" name="matchId" value="${match.id}">
-                                    <button type="submit" name="action" value="dejaRencontre" class="btn btn-warning btn-sm">&#128107;</button>
+                                    <button type="submit" name="action" value="dejaRencontre" class="btn btn-warning btn-sm"><i class="fa-solid fa-people-arrows"></i></button>
                                 </form>
                             </div>
+                        </div>
                     </c:forEach>
                 </div>
             </c:when>
             <c:otherwise>
                 <div class="empty-state">
-                    <div class="empty-state-icon">&#128148;</div>
+                    <div class="empty-state-icon"><i class="fa-solid fa-heart-crack"></i></div>
                     <p>Vous n'avez pas encore de matchs acceptés.</p>
                     <a href="${ctx}/app/search" class="btn btn-primary btn-sm">Rechercher des membres</a>
                 </div>

@@ -23,7 +23,7 @@ public class SubscriptionServlet extends HttpServlet {
         HttpSession session = req.getSession();
         Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
         if (user == null) {
-            resp.sendRedirect(req.getContextPath() + "/login.html");
+            resp.sendRedirect(req.getContextPath() + "/login.jsp");
             return;
         }
 
@@ -36,7 +36,7 @@ public class SubscriptionServlet extends HttpServlet {
         HttpSession session = req.getSession();
         Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
         if (user == null) {
-            resp.sendRedirect(req.getContextPath() + "/login.html");
+            resp.sendRedirect(req.getContextPath() + "/login.jsp");
             return;
         }
 

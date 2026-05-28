@@ -23,7 +23,7 @@ public class NotificationServlet extends HttpServlet {
         Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
         
         if (user == null) {
-            resp.sendRedirect(req.getContextPath() + "/login.html");
+            resp.sendRedirect(req.getContextPath() + "/login.jsp");
             return;
         }
 

@@ -8,12 +8,12 @@
 </jsp:include>
 
 <div class="page-header">
-    <h1>&#128179; Mon abonnement</h1>
+    <h1><i class="fa-solid fa-credit-card"></i> Mon abonnement</h1>
     <p>Gérez votre abonnement et découvrez nos offres.</p>
 </div>
 
 <c:if test="${param.success == '1'}">
-    <div class="alert alert-success">&#10004; Votre abonnement a été mis à jour avec succès !</div>
+    <div class="alert alert-success"><i class="fa-solid fa-circle-check"></i> Votre abonnement a été mis à jour avec succès !</div>
 </c:if>
 
 <!-- Abonnement actuel -->
@@ -45,18 +45,18 @@
 </div>
 
 <!-- Offres -->
-<h2 class="mb-2">&#127873; Nos offres</h2>
+<h2 class="mb-2"><i class="fa-solid fa-gift"></i> Nos offres</h2>
 <div class="grid grid-3">
     <div class="card" style="text-align:center;">
-        <div style="font-size:3rem;">&#127775;</div>
+        <div style="font-size:3rem;"><i class="fa-solid fa-star"></i></div>
         <h3>Gratuit</h3>
         <div style="font-size:2rem;font-weight:bold;color:var(--success-color);">0 €</div>
         <ul style="list-style:none;padding:0;text-align:left;margin:1.5rem 0;">
-            <li>&#10003; Création de profil</li>
-            <li>&#10003; Recherche basique</li>
-            <li>&#10003; 5 likes par jour</li>
-            <li>&#10007; Messagerie illimitée</li>
-            <li>&#10007; Voir qui vous a liké</li>
+            <li><i class="fa-solid fa-check"></i> Création de profil</li>
+            <li><i class="fa-solid fa-check"></i> Recherche basique</li>
+            <li><i class="fa-solid fa-check"></i> 5 likes par jour</li>
+            <li><i class="fa-solid fa-xmark"></i> Messagerie illimitée</li>
+            <li><i class="fa-solid fa-xmark"></i> Voir qui vous a liké</li>
         </ul>
         <form action="${ctx}/app/subscription" method="post">
             <input type="hidden" name="type" value="GRATUIT">
@@ -65,15 +65,15 @@
     </div>
 
     <div class="card" style="text-align:center;border:2px solid var(--info-color);">
-        <div style="font-size:3rem;">&#128142;</div>
+        <div style="font-size:3rem;"><i class="fa-solid fa-gem"></i></div>
         <h3>Premium</h3>
         <div style="font-size:2rem;font-weight:bold;color:var(--info-color);">9.99 €<small>/mois</small></div>
         <ul style="list-style:none;padding:0;text-align:left;margin:1.5rem 0;">
-            <li>&#10003; Tout le pack Gratuit</li>
-            <li>&#10003; Likes illimités</li>
-            <li>&#10003; Messagerie illimitée</li>
-            <li>&#10003; Voir qui vous a liké</li>
-            <li>&#10007; Badge VIP</li>
+            <li><i class="fa-solid fa-check"></i> Tout le pack Gratuit</li>
+            <li><i class="fa-solid fa-check"></i> Likes illimités</li>
+            <li><i class="fa-solid fa-check"></i> Messagerie illimitée</li>
+            <li><i class="fa-solid fa-check"></i> Voir qui vous a liké</li>
+            <li><i class="fa-solid fa-xmark"></i> Badge VIP</li>
         </ul>
         <form action="${ctx}/app/subscription" method="post">
             <input type="hidden" name="type" value="PREMIUM">
@@ -82,15 +82,15 @@
     </div>
 
     <div class="card" style="text-align:center;border:2px solid var(--warning-color);">
-        <div style="font-size:3rem;">&#128081;</div>
+        <div style="font-size:3rem;"><i class="fa-solid fa-crown"></i></div>
         <h3>VIP</h3>
         <div style="font-size:2rem;font-weight:bold;color:var(--warning-color);">29.99 €<small>/3 mois</small></div>
         <ul style="list-style:none;padding:0;text-align:left;margin:1.5rem 0;">
-            <li>&#10003; Tout le pack Premium</li>
-            <li>&#10003; Badge VIP exclusif</li>
-            <li>&#10003; Priorité dans les recherches</li>
-            <li>&#10003; Support prioritaire</li>
-            <li>&#10003; Statistiques avancées</li>
+            <li><i class="fa-solid fa-check"></i> Tout le pack Premium</li>
+            <li><i class="fa-solid fa-check"></i> Badge VIP exclusif</li>
+            <li><i class="fa-solid fa-check"></i> Priorité dans les recherches</li>
+            <li><i class="fa-solid fa-check"></i> Support prioritaire</li>
+            <li><i class="fa-solid fa-check"></i> Statistiques avancées</li>
         </ul>
         <form action="${ctx}/app/subscription" method="post">
             <input type="hidden" name="type" value="VIP">

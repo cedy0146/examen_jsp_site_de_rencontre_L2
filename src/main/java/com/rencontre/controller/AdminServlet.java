@@ -25,7 +25,7 @@ public class AdminServlet extends HttpServlet {
         HttpSession session = req.getSession();
         Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
         if (user == null || !user.isAdmin()) {
-            resp.sendRedirect(req.getContextPath() + "/login.html");
+            resp.sendRedirect(req.getContextPath() + "/login.jsp");
             return;
         }
 
@@ -51,7 +51,7 @@ public class AdminServlet extends HttpServlet {
         HttpSession session = req.getSession();
         Utilisateur user = (Utilisateur) session.getAttribute("utilisateur");
         if (user == null || !user.isAdmin()) {
-            resp.sendRedirect(req.getContextPath() + "/login.html");
+            resp.sendRedirect(req.getContextPath() + "/login.jsp");
             return;
         }
 

@@ -9,7 +9,7 @@
 
 <c:if test="${param.updated == '1'}">
     <div class="alert alert-success">
-        &#10004; Votre profil a été mis à jour avec succès !
+        <i class="fa-solid fa-circle-check"></i> Votre profil a été mis à jour avec succès !
     </div>
 </c:if>
 
@@ -24,14 +24,14 @@
         <p>
             <span class="badge badge-${user.role == 'ADMIN' ? 'danger' : user.role == 'VIP' ? 'warning' : 'secondary'}">${user.role}</span>
             <span class="badge badge-${user.statut == 'ACTIF' ? 'success' : 'danger'}">${user.statut}</span>
-            <span class="badge badge-${isOnline ? 'success' : 'secondary'}">${isOnline ? '&#128308; En ligne' : '&#9899; Hors ligne'}</span>
+            <span class="badge badge-${isOnline ? 'success' : 'secondary'}">${isOnline ? '<i class="fa-solid fa-circle" style="color:#4caf50;font-size:0.6em;vertical-align:middle;"></i> En ligne' : '<i class="fa-solid fa-circle" style="color:#9e9e9e;font-size:0.6em;vertical-align:middle;"></i> Hors ligne'}</span>
         </p>
         <div class="mt-2">
             <a href="${ctx}/app/profile?action=edit" class="btn btn-primary">&#9998; Modifier mon profil</a>
         </div>
         <div class="mt-2">
             <form action="${ctx}/delete-account" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.');">
-                <button type="submit" class="btn btn-danger btn-sm">&#128465; Supprimer mon compte</button>
+                <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> Supprimer mon compte</button>
             </form>
         </div>
     </div>
@@ -40,14 +40,14 @@
     <div>
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">&#128100; À propos de moi</h3>
+                <h3 class="card-title"><i class="fa-solid fa-user"></i> À propos de moi</h3>
             </div>
             <p>${not empty user.bio ? user.bio : '<em class="text-muted">Aucune bio renseignée.</em>'}</p>
         </div>
 
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">&#10084; Centres d'intérêt</h3>
+                <h3 class="card-title"><i class="fa-solid fa-heart"></i> Centres d'intérêt</h3>
             </div>
             <c:choose>
                 <c:when test="${not empty user.interets}">
@@ -65,7 +65,7 @@
 
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">&#128269; Préférences de recherche</h3>
+                <h3 class="card-title"><i class="fa-solid fa-magnifying-glass"></i> Préférences de recherche</h3>
             </div>
             <c:choose>
                 <c:when test="${not empty user.preferences}">
@@ -84,7 +84,7 @@
 
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">&#128179; Abonnement</h3>
+                <h3 class="card-title"><i class="fa-solid fa-credit-card"></i> Abonnement</h3>
             </div>
             <c:choose>
                 <c:when test="${not empty user.abonnement}">
@@ -104,7 +104,7 @@
 
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">&#128247; Ma galerie</h3>
+                <h3 class="card-title"><i class="fa-solid fa-images"></i> Ma galerie</h3>
             </div>
             <c:choose>
                 <c:when test="${not empty photos}">
@@ -122,7 +122,7 @@
 
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">&#128064; Derniers visiteurs</h3>
+                <h3 class="card-title"><i class="fa-solid fa-eye"></i> Derniers visiteurs</h3>
             </div>
             <c:choose>
                 <c:when test="${not empty recentVisitors}">

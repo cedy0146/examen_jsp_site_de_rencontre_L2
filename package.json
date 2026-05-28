@@ -8,5 +8,14 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cedy0146/examen_jsp_site_de_rencontre_L2.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/cedy0146/examen_jsp_site_de_rencontre_L2/issues"
+  },
+  "homepage": "https://github.com/cedy0146/examen_jsp_site_de_rencontre_L2#readme",
   "description": ""
 }

@@ -1,6 +1,7 @@
 package com.rencontre.model;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class Utilisateur {
     
     public int getAge() {
         if (dateNaissance == null) return 0;
-        return LocalDate.now().getYear() - dateNaissance.getYear();
+        return Period.between(dateNaissance, LocalDate.now()).getYears();
     }
     
     public String getNomComplet() {

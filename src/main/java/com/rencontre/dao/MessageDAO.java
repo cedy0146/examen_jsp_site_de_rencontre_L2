@@ -18,12 +18,8 @@ public class MessageDAO {
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return mapMessage(rs);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            if (rs.next()) return mapMessage(rs);
+        } catch (SQLException e) { e.printStackTrace(); }
         return null;
     }
 
@@ -32,18 +28,41 @@ public class MessageDAO {
         String sql = "SELECT * FROM messages WHERE (expediteur_id = ? AND destinataire_id = ?) OR (expediteur_id = ? AND destinataire_id = ?) ORDER BY date_envoi ASC";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, user1Id);
-            ps.setInt(2, user2Id);
-            ps.setInt(3, user2Id);
-            ps.setInt(4, user1Id);
+            ps.setInt(1, user1Id); ps.setInt(2, user2Id);
+            ps.setInt(3, user2Id); ps.setInt(4, user1Id);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(mapMessage(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            while (rs.next()) list.add(mapMessage(rs));
+        } catch (SQLException e) { e.printStackTrace(); }
         return list;
+    }
+
+    /**
+     * Retourne le dernier message échangé entre deux utilisateurs.
+     */
+    public Message findLastMessage(int userId, int partnerId) {
+        String sql = "SELECT * FROM messages WHERE (expediteur_id = ? AND destinataire_id = ?) OR (expediteur_id = ? AND destinataire_id = ?) ORDER BY date_envoi DESC LIMIT 1";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId); ps.setInt(2, partnerId);
+            ps.setInt(3, partnerId); ps.setInt(4, userId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return mapMessage(rs);
+        } catch (SQLException e) { e.printStackTrace(); }
+        return null;
+    }
+
+    /**
+     * Compte les messages non lus reçus d'un partenaire spécifique.
+     */
+    public int countUnreadFrom(int userId, int partnerId) {
+        String sql = "SELECT COUNT(*) FROM messages WHERE destinataire_id = ? AND expediteur_id = ? AND lu = FALSE";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId); ps.setInt(2, partnerId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return rs.getInt(1);
+        } catch (SQLException e) { e.printStackTrace(); }
+        return 0;
     }
 
     public List<Message> findByDestinataireId(int destinataireId) {
@@ -53,12 +72,8 @@ public class MessageDAO {
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, destinataireId);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(mapMessage(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            while (rs.next()) list.add(mapMessage(rs));
+        } catch (SQLException e) { e.printStackTrace(); }
         return list;
     }
 
@@ -69,30 +84,21 @@ public class MessageDAO {
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, destinataireId);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(mapMessage(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            while (rs.next()) list.add(mapMessage(rs));
+        } catch (SQLException e) { e.printStackTrace(); }
         return list;
     }
 
     public List<Integer> findConversationPartners(int userId) {
         List<Integer> list = new ArrayList<>();
-        String sql = "SELECT DISTINCT CASE WHEN expediteur_id = ? THEN destinataire_id ELSE expediteur_id END AS partner FROM messages WHERE expediteur_id = ? OR destinataire_id = ?";
+        // Triés par date du dernier message (le plus récent en premier)
+        String sql = "SELECT DISTINCT CASE WHEN expediteur_id = ? THEN destinataire_id ELSE expediteur_id END AS partner, MAX(date_envoi) AS last_msg FROM messages WHERE expediteur_id = ? OR destinataire_id = ? GROUP BY partner ORDER BY last_msg DESC";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, userId);
-            ps.setInt(2, userId);
-            ps.setInt(3, userId);
+            ps.setInt(1, userId); ps.setInt(2, userId); ps.setInt(3, userId);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(rs.getInt("partner"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            while (rs.next()) list.add(rs.getInt("partner"));
+        } catch (SQLException e) { e.printStackTrace(); }
         return list;
     }
 
@@ -103,16 +109,13 @@ public class MessageDAO {
             ps.setInt(1, m.getExpediteurId());
             ps.setInt(2, m.getDestinataireId());
             ps.setString(3, m.getContenu());
-            int affected = ps.executeUpdate();
-            if (affected > 0) {
+            if (ps.executeUpdate() > 0) {
                 try (ResultSet rs = ps.getGeneratedKeys()) {
                     if (rs.next()) m.setId(rs.getInt(1));
                 }
                 return true;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException e) { e.printStackTrace(); }
         return false;
     }
 
@@ -122,9 +125,7 @@ public class MessageDAO {
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             return ps.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException e) { e.printStackTrace(); }
         return false;
     }
 
@@ -132,12 +133,9 @@ public class MessageDAO {
         String sql = "UPDATE messages SET lu = TRUE WHERE destinataire_id = ? AND expediteur_id = ? AND lu = FALSE";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, userId);
-            ps.setInt(2, partnerId);
+            ps.setInt(1, userId); ps.setInt(2, partnerId);
             return ps.executeUpdate() >= 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException e) { e.printStackTrace(); }
         return false;
     }
 
@@ -147,9 +145,7 @@ public class MessageDAO {
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             return ps.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException e) { e.printStackTrace(); }
         return false;
     }
 
@@ -159,12 +155,8 @@ public class MessageDAO {
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, destinataireId);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getInt(1);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            if (rs.next()) return rs.getInt(1);
+        } catch (SQLException e) { e.printStackTrace(); }
         return 0;
     }
 
@@ -180,4 +172,3 @@ public class MessageDAO {
         return m;
     }
 }
-

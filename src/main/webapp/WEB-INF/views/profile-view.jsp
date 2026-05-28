@@ -8,7 +8,7 @@
 </jsp:include>
 
 <div class="page-header">
-    <h1>&#128100; Profil de ${vu.prenom} ${vu.nom}</h1>
+    <h1><i class="fa-solid fa-user"></i> Profil de ${vu.prenom} ${vu.nom}</h1>
     <p>Découvrez ce membre et interagissez avec lui.</p>
 </div>
 
@@ -24,24 +24,24 @@
             <c:if test="${vu.visibilite == 'PUBLIC'}">
                 <span class="badge badge-success">Profil public</span>
             </c:if>
-            <span class="badge badge-${isOnline ? 'success' : 'secondary'}">${isOnline ? '&#128308; En ligne' : '&#9899; Hors ligne'}</span>
+            <span class="badge badge-${isOnline ? 'success' : 'secondary'}">${isOnline ? '<i class="fa-solid fa-circle" style="color:#4caf50;font-size:0.6em;vertical-align:middle;"></i> En ligne' : '<i class="fa-solid fa-circle" style="color:#9e9e9e;font-size:0.6em;vertical-align:middle;"></i> Hors ligne'}</span>
         </p>
         <c:if test="${not empty distance}">
-            <p class="text-muted">&#128205; À ${distance} km de vous</p>
+            <p class="text-muted"><i class="fa-solid fa-location-dot"></i> À ${distance} km de vous</p>
         </c:if>
         <div class="profile-actions mt-2">
             <form action="${ctx}/app/interaction" method="post" style="display:inline;">
                 <input type="hidden" name="action" value="like">
                 <input type="hidden" name="destinataireId" value="${vu.id}">
-                <button type="submit" class="btn btn-success">&#128077; J'aime</button>
+                <button type="submit" class="btn btn-success"><i class="fa-solid fa-thumbs-up"></i> J'aime</button>
             </form>
-            <a href="${ctx}/app/message?action=conversation&partnerId=${vu.id}" class="btn btn-primary">&#128172; Message</a>
+            <a href="${ctx}/app/message?action=conversation&partnerId=${vu.id}" class="btn btn-primary"><i class="fa-solid fa-comment-dots"></i> Message</a>
             <c:choose>
                 <c:when test="${isBlocked}">
                     <form action="${ctx}/app/interaction" method="post" style="display:inline;">
                         <input type="hidden" name="action" value="unblock">
                         <input type="hidden" name="destinataireId" value="${vu.id}">
-                        <button type="submit" class="btn btn-warning">&#128275; Débloquer</button>
+                        <button type="submit" class="btn btn-warning"><i class="fa-solid fa-lock-open"></i> Débloquer</button>
                     </form>
                 </c:when>
                 <c:otherwise>
@@ -49,11 +49,11 @@
                           onsubmit="return confirm('Voulez-vous vraiment bloquer cet utilisateur ?');">
                         <input type="hidden" name="action" value="block">
                         <input type="hidden" name="destinataireId" value="${vu.id}">
-                        <button type="submit" class="btn btn-danger">&#128683; Bloquer</button>
+                        <button type="submit" class="btn btn-danger"><i class="fa-solid fa-ban"></i> Bloquer</button>
                     </form>
                 </c:otherwise>
             </c:choose>
-            <button type="button" class="btn btn-outline-danger btn-sm" onclick="document.getElementById('reportForm').style.display='block'">&#128681; Signaler</button>
+            <button type="button" class="btn btn-outline-danger btn-sm" onclick="document.getElementById('reportForm').style.display='block'"><i class="fa-solid fa-flag"></i> Signaler</button>
         </div>
         <!-- Formulaire de signalement -->
         <div id="reportForm" style="display:none;margin-top:1rem;" class="card">
@@ -81,21 +81,21 @@
             </form>
         </div>
         <c:if test="${param.reported == '1'}">
-            <div class="alert alert-success mt-2">&#10004; Signalement envoyé.</div>
+            <div class="alert alert-success mt-2"><i class="fa-solid fa-circle-check"></i> Signalement envoyé.</div>
         </c:if>
     </div>
 
     <div>
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">&#128172; Bio</h3>
+                <h3 class="card-title"><i class="fa-solid fa-comment-dots"></i> Bio</h3>
             </div>
             <p>${not empty vu.bio ? vu.bio : '<em class="text-muted">Aucune bio renseignée.</em>'}</p>
         </div>
 
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">&#10084; Centres d'intérêt</h3>
+                <h3 class="card-title"><i class="fa-solid fa-heart"></i> Centres d'intérêt</h3>
             </div>
             <c:choose>
                 <c:when test="${not empty vu.interets}">
@@ -113,7 +113,7 @@
 
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">&#128247; Galerie photos</h3>
+                <h3 class="card-title"><i class="fa-solid fa-images"></i> Galerie photos</h3>
             </div>
             <c:choose>
                 <c:when test="${not empty photos}">
@@ -131,7 +131,7 @@
 
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">&#128197; Informations</h3>
+                <h3 class="card-title"><i class="fa-solid fa-calendar"></i> Informations</h3>
             </div>
             <div class="grid grid-2">
                 <div><strong>Membre depuis :</strong> ${vu.dateInscription}</div>
@@ -144,7 +144,7 @@
 </div>
 
 <div class="mt-3">
-    <a href="${ctx}/app/search" class="btn btn-secondary">&#8592; Retour à la recherche</a>
+    <a href="${ctx}/app/search" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Retour à la recherche</a>
 </div>
 
 <jsp:include page="/WEB-INF/views/includes/footer.jsp" />

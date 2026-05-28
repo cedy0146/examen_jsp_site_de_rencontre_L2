@@ -1,7 +1,11 @@
 package com.rencontre.controller;
 
 import com.rencontre.dao.UtilisateurDAO;
+import com.rencontre.dao.PreferencesDAO;
+import com.rencontre.dao.AbonnementDAO;
 import com.rencontre.model.Utilisateur;
+import com.rencontre.model.PreferencesRecherche;
+import com.rencontre.model.Abonnement;
 import com.rencontre.util.PasswordUtil;
 
 import javax.servlet.ServletException;
@@ -22,6 +26,8 @@ import com.rencontre.util.DBConnection;
 public class AuthServlet extends HttpServlet {
     
     private UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
+    private PreferencesDAO preferencesDAO = new PreferencesDAO();
+    private AbonnementDAO abonnementDAO = new AbonnementDAO();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -90,6 +96,17 @@ public class AuthServlet extends HttpServlet {
             user.setBio(req.getParameter("bio"));
             
             if (utilisateurDAO.create(user)) {
+                PreferencesRecherche pref = new PreferencesRecherche();
+                pref.setUtilisateurId(user.getId());
+                preferencesDAO.create(pref);
+
+                Abonnement abonnement = new Abonnement();
+                abonnement.setUtilisateurId(user.getId());
+                abonnement.setType("GRATUIT");
+                abonnement.setStatut("ACTIF");
+                abonnement.setPrix(0);
+                abonnementDAO.create(abonnement);
+
                 resp.sendRedirect(req.getContextPath() + "/login.jsp?success=1");
             } else {
                 resp.sendRedirect(req.getContextPath() + "/register.jsp?error=1");

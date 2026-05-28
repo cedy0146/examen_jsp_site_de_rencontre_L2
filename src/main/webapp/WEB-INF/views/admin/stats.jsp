@@ -9,37 +9,37 @@
 <div class="admin-layout">
     <!-- Sidebar -->
     <aside class="admin-sidebar">
-        <h3>&#9881; Administration</h3>
+        <h3><i class="fa-solid fa-gear"></i> Administration</h3>
         <ul class="admin-menu">
-            <li><a href="${ctx}/app/admin">&#128202; Dashboard</a></li>
-            <li><a href="${ctx}/app/admin?action=users">&#128100; Utilisateurs</a></li>
-            <li><a href="${ctx}/app/admin?action=stats" class="active">&#128200; Statistiques</a></li>
+            <li><a href="${ctx}/app/admin"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+            <li><a href="${ctx}/app/admin?action=users"><i class="fa-solid fa-user"></i> Utilisateurs</a></li>
+            <li><a href="${ctx}/app/admin?action=stats" class="active"><i class="fa-solid fa-chart-line"></i> Statistiques</a></li>
         </ul>
     </aside>
 
     <!-- Content -->
     <div>
         <div class="page-header">
-            <h1>&#128200; Statistiques globales</h1>
+            <h1><i class="fa-solid fa-chart-line"></i> Statistiques globales</h1>
             <p>Analysez les performances du site en temps réel.</p>
         </div>
 
         <!-- KPI -->
         <div class="grid grid-4 mb-3">
             <div class="stat-card">
-                <div class="stat-icon">&#128100;</div>
+                <div class="stat-icon"><i class="fa-solid fa-user"></i></div>
                 <div class="stat-value">${stats != null ? stats.totalUtilisateurs : 0}</div>
                 <div class="stat-label">Total utilisateurs</div>
             <div class="stat-card">
-                <div class="stat-icon">&#128241;</div>
+                <div class="stat-icon"><i class="fa-solid fa-mobile-screen"></i></div>
                 <div class="stat-value">${stats != null ? stats.utilisateursActifs : 0}</div>
                 <div class="stat-label">Actifs aujourd'hui</div>
             <div class="stat-card">
-                <div class="stat-icon">&#128142;</div>
+                <div class="stat-icon"><i class="fa-solid fa-gem"></i></div>
                 <div class="stat-value">${stats != null ? stats.totalAbonnementsPremium : 0}</div>
                 <div class="stat-label">Abonnés Premium</div>
             <div class="stat-card">
-                <div class="stat-icon">&#128081;</div>
+                <div class="stat-icon"><i class="fa-solid fa-crown"></i></div>
                 <div class="stat-value">${stats != null ? stats.totalAbonnementsVip : 0}</div>
                 <div class="stat-label">Abonnés VIP</div>
         </div>
@@ -48,7 +48,7 @@
             <!-- Revenus -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">&#128176; Revenus</h3>
+                    <h3 class="card-title"><i class="fa-solid fa-coins"></i> Revenus</h3>
                 </div>
                 <div class="stat-card" style="box-shadow:none;">
                     <div class="stat-value" style="font-size:2rem;">${stats != null ? stats.revenusTotaux : 0} €</div>
@@ -60,7 +60,7 @@
             <!-- Interactions -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">&#128200; Interactions</h3>
+                    <h3 class="card-title"><i class="fa-solid fa-chart-line"></i> Interactions</h3>
                 </div>
                 <div style="margin-bottom:1rem;">
                     <div class="d-flex justify-between align-center mb-1">
@@ -99,7 +99,7 @@
         <!-- Taux de compatibilité -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">&#128202; Taux de compatibilité moyen</h3>
+                <h3 class="card-title"><i class="fa-solid fa-chart-pie"></i> Taux de compatibilité moyen</h3>
             </div>
             <div style="display:flex;align-items:center;gap:2rem;">
                 <div style="width:120px;height:120px;border-radius:50%;border:8px solid var(--primary-color);display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:bold;color:var(--primary-color);">

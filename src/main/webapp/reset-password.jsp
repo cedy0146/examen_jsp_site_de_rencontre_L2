@@ -7,29 +7,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Réinitialisation du mot de passe - Coup de Foudre</title>
-    <link rel="stylesheet" href="${ctx}/assets/css/style.css">
+    <jsp:include page="/WEB-INF/views/includes/head-assets.jsp" />
 </head>
 <body class="auth-page">
     <div class="auth-container">
         <div class="text-center mb-3">
-            <div style="font-size:3rem;">&#10084;</div>
+            <div style="font-size:3rem;"><i class="fa-solid fa-heart"></i></div>
             <h1>Nouveau mot de passe</h1>
             <p class="text-muted">Choisissez un nouveau mot de passe sécurisé.</p>
         </div>
 
         <c:if test="${param.error == '1'}">
             <div class="alert alert-danger">
-                &#9888; Lien invalide ou expiré.
+                <i class="fa-solid fa-triangle-exclamation"></i> Lien invalide ou expiré.
             </div>
         </c:if>
         <c:if test="${param.error == '2'}">
             <div class="alert alert-danger">
-                &#9888; Les mots de passe ne correspondent pas.
+                <i class="fa-solid fa-triangle-exclamation"></i> Les mots de passe ne correspondent pas.
             </div>
         </c:if>
         <c:if test="${param.error == '3'}">
             <div class="alert alert-danger">
-                &#9888; Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.
+                <i class="fa-solid fa-triangle-exclamation"></i> Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.
             </div>
         </c:if>
 
@@ -47,7 +47,7 @@
         </form>
 
         <div class="auth-footer">
-            <p><a href="${ctx}/login.jsp">&#8592; Retour à la connexion</a></p>
+            <p><a href="${ctx}/login.jsp"><i class="fa-solid fa-arrow-left"></i> Retour à la connexion</a></p>
         </div>
     </div>
 </body>

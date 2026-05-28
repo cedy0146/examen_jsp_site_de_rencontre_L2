@@ -9,23 +9,23 @@
 <div class="admin-layout">
     <!-- Sidebar -->
     <aside class="admin-sidebar">
-        <h3>&#9881; Administration</h3>
+        <h3><i class="fa-solid fa-gear"></i> Administration</h3>
         <ul class="admin-menu">
-            <li><a href="${ctx}/app/admin">&#128202; Dashboard</a></li>
-            <li><a href="${ctx}/app/admin?action=users" class="active">&#128100; Utilisateurs</a></li>
-            <li><a href="${ctx}/app/admin?action=stats">&#128200; Statistiques</a></li>
+            <li><a href="${ctx}/app/admin"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+            <li><a href="${ctx}/app/admin?action=users" class="active"><i class="fa-solid fa-user"></i> Utilisateurs</a></li>
+            <li><a href="${ctx}/app/admin?action=stats"><i class="fa-solid fa-chart-line"></i> Statistiques</a></li>
         </ul>
     </aside>
 
     <!-- Content -->
     <div>
         <div class="page-header">
-            <h1>&#128100; Gestion des utilisateurs</h1>
+            <h1><i class="fa-solid fa-user"></i> Gestion des utilisateurs</h1>
             <p>Administrez les comptes utilisateurs du site.</p>
         </div>
 
         <c:if test="${param.success == '1'}">
-            <div class="alert alert-success">&#10004; Action effectuée avec succès.</div>
+            <div class="alert alert-success"><i class="fa-solid fa-circle-check"></i> Action effectuée avec succès.</div>
         </c:if>
 
         <div class="card">

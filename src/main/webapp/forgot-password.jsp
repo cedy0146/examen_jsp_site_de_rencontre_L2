@@ -7,24 +7,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mot de passe oublié - Coup de Foudre</title>
-    <link rel="stylesheet" href="${ctx}/assets/css/style.css">
+    <jsp:include page="/WEB-INF/views/includes/head-assets.jsp" />
 </head>
 <body class="auth-page">
     <div class="auth-container">
         <div class="text-center mb-3">
-            <div style="font-size:3rem;">&#10084;</div>
+            <div style="font-size:3rem;"><i class="fa-solid fa-heart"></i></div>
             <h1>Mot de passe oublié</h1>
             <p class="text-muted">Entrez votre email pour réinitialiser votre mot de passe.</p>
         </div>
 
         <c:if test="${param.error == '1'}">
             <div class="alert alert-danger">
-                &#9888; Aucun compte trouvé avec cet email.
+                <i class="fa-solid fa-triangle-exclamation"></i> Aucun compte trouvé avec cet email.
             </div>
         </c:if>
         <c:if test="${param.sent == '1'}">
             <div class="alert alert-success">
-                &#10004; Un lien de réinitialisation a été envoyé (vérifiez votre email).
+                <i class="fa-solid fa-circle-check"></i> Un lien de réinitialisation a été envoyé (vérifiez votre email).
             </div>
         </c:if>
 
@@ -37,7 +37,7 @@
         </form>
 
         <div class="auth-footer">
-            <p><a href="${ctx}/login.jsp">&#8592; Retour à la connexion</a></p>
+            <p><a href="${ctx}/login.jsp"><i class="fa-solid fa-arrow-left"></i> Retour à la connexion</a></p>
         </div>
     </div>
 </body>

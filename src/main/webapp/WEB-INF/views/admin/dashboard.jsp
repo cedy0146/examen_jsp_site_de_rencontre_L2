@@ -9,37 +9,37 @@
 <div class="admin-layout">
     <!-- Sidebar -->
     <aside class="admin-sidebar">
-        <h3>&#9881; Administration</h3>
+        <h3><i class="fa-solid fa-gear"></i> Administration</h3>
         <ul class="admin-menu">
-            <li><a href="${ctx}/app/admin" class="active">&#128202; Dashboard</a></li>
-            <li><a href="${ctx}/app/admin?action=users">&#128100; Utilisateurs</a></li>
-            <li><a href="${ctx}/app/admin?action=stats">&#128200; Statistiques</a></li>
+            <li><a href="${ctx}/app/admin" class="active"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+            <li><a href="${ctx}/app/admin?action=users"><i class="fa-solid fa-user"></i> Utilisateurs</a></li>
+            <li><a href="${ctx}/app/admin?action=stats"><i class="fa-solid fa-chart-line"></i> Statistiques</a></li>
         </ul>
     </aside>
 
     <!-- Content -->
     <div>
         <div class="page-header">
-            <h1>&#128202; Tableau de bord Admin</h1>
+            <h1><i class="fa-solid fa-chart-pie"></i> Tableau de bord Admin</h1>
             <p>Vue d'ensemble de l'activité du site.</p>
         </div>
 
         <!-- KPI -->
         <div class="grid grid-4 mb-3">
             <div class="stat-card">
-                <div class="stat-icon">&#128100;</div>
+                <div class="stat-icon"><i class="fa-solid fa-user"></i></div>
                 <div class="stat-value">${stats != null ? stats.totalUtilisateurs : 0}</div>
                 <div class="stat-label">Utilisateurs</div>
             <div class="stat-card">
-                <div class="stat-icon">&#128142;</div>
+                <div class="stat-icon"><i class="fa-solid fa-gem"></i></div>
                 <div class="stat-value">${stats != null ? stats.totalAbonnementsPremium : 0}</div>
                 <div class="stat-label">Premium</div>
             <div class="stat-card">
-                <div class="stat-icon">&#128081;</div>
+                <div class="stat-icon"><i class="fa-solid fa-crown"></i></div>
                 <div class="stat-value">${stats != null ? stats.totalAbonnementsVip : 0}</div>
                 <div class="stat-label">VIP</div>
             <div class="stat-card">
-                <div class="stat-icon">&#128176;</div>
+                <div class="stat-icon"><i class="fa-solid fa-coins"></i></div>
                 <div class="stat-value">${stats != null ? stats.revenusTotaux : 0} €</div>
                 <div class="stat-label">Revenus</div>
         </div>
@@ -47,7 +47,7 @@
         <div class="grid grid-2">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">&#128200; Activité récente</h3>
+                    <h3 class="card-title"><i class="fa-solid fa-chart-line"></i> Activité récente</h3>
                 </div>
                 <div class="grid grid-2">
                     <div class="stat-card" style="box-shadow:none;">
@@ -60,7 +60,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">&#9881; Actions rapides</h3>
+                    <h3 class="card-title"><i class="fa-solid fa-gear"></i> Actions rapides</h3>
                 </div>
                 <div class="d-flex gap-2" style="flex-wrap:wrap;">
                     <a href="${ctx}/app/admin?action=users" class="btn btn-primary">Gérer les utilisateurs</a>
@@ -71,7 +71,7 @@
         <!-- Derniers utilisateurs -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">&#128100; Derniers utilisateurs inscrits</h3>
+                <h3 class="card-title"><i class="fa-solid fa-user"></i> Derniers utilisateurs inscrits</h3>
                 <a href="${ctx}/app/admin?action=users" class="btn btn-sm btn-outline-primary">Voir tout</a>
             </div>
             <div class="table-container">

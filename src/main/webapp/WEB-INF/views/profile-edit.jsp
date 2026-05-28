@@ -18,7 +18,7 @@
         <!-- Informations personnelles -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">&#128100; Informations personnelles</h3>
+                <h3 class="card-title"><i class="fa-solid fa-user"></i> Informations personnelles</h3>
             </div>
             <div class="form-row">
                 <div class="form-group">
@@ -82,7 +82,7 @@
                         <c:forEach var="photo" items="${photos}">
                             <div style="position:relative;">
                                 <img src="${photo.url}" style="width:100%;height:80px;object-fit:cover;border-radius:4px;" onerror="this.style.display='none'">
-                                <a href="${ctx}/app/profile?action=deletePhoto&photoId=${photo.id}" class="btn btn-danger btn-xs" style="position:absolute;top:2px;right:2px;padding:2px 6px;font-size:10px;" onclick="return confirm('Supprimer cette photo ?')">&#10005;</a>
+                                <a href="${ctx}/app/profile?action=deletePhoto&photoId=${photo.id}" class="btn btn-danger btn-xs" style="position:absolute;top:2px;right:2px;padding:2px 6px;font-size:10px;" onclick="return confirm('Supprimer cette photo ?')"><i class="fa-solid fa-xmark"></i></a>
                             </div>
                         </c:forEach>
                     </div>
@@ -94,7 +94,7 @@
         <div>
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">&#10084; Centres d'intérêt</h3>
+                    <h3 class="card-title"><i class="fa-solid fa-heart"></i> Centres d'intérêt</h3>
                 </div>
                 <div class="checkbox-group">
                     <c:forEach var="interet" items="${allInterets}">
@@ -112,7 +112,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">&#128269; Préférences de recherche</h3>
+                    <h3 class="card-title"><i class="fa-solid fa-magnifying-glass"></i> Préférences de recherche</h3>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
@@ -151,8 +151,8 @@
     </div>
 
     <div class="d-flex gap-2 mt-3">
-        <button type="submit" class="btn btn-primary btn-lg">&#128190; Enregistrer les modifications</button>
-        <a href="${ctx}/app/profile" class="btn btn-secondary btn-lg">&#10060; Annuler</a>
+        <button type="submit" class="btn btn-primary btn-lg"><i class="fa-solid fa-floppy-disk"></i> Enregistrer les modifications</button>
+        <a href="${ctx}/app/profile" class="btn btn-secondary btn-lg"><i class="fa-solid fa-xmark"></i> Annuler</a>
     </div>
 </form>
 

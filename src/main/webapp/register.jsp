@@ -7,31 +7,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscription - Coup de Foudre</title>
-    <link rel="stylesheet" href="${ctx}/assets/css/style.css">
+    <jsp:include page="/WEB-INF/views/includes/head-assets.jsp" />
 </head>
 <body class="auth-page">
     <div class="auth-container" style="max-width: 550px;">
         <div class="text-center mb-3">
-            <div style="font-size:3rem;">&#10084;</div>
+            <div class="auth-logo"><i class="fa-solid fa-heart"></i></div>
             <h1>Rejoignez-nous</h1>
             <p class="text-muted">Trouvez votre âme sœur dès maintenant</p>
         </div>
 
         <c:if test="${param.error == '1'}">
             <div class="alert alert-danger">
-                &#9888; Une erreur est survenue lors de l'inscription. L'email est peut-être déjà utilisé.
+                <i class="fa-solid fa-triangle-exclamation"></i> Une erreur est survenue lors de l'inscription. L'email est peut-être déjà utilisé.
             </div>
         </c:if>
 
         <c:if test="${param.error == '2'}">
             <div class="alert alert-danger">
-                &#9888; Les mots de passe ne correspondent pas.
+                <i class="fa-solid fa-triangle-exclamation"></i> Les mots de passe ne correspondent pas.
             </div>
         </c:if>
 
         <c:if test="${param.error == '3'}">
             <div class="alert alert-danger">
-                &#9888; Le mot de passe est trop faible. Il doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.
+                <i class="fa-solid fa-triangle-exclamation"></i> Le mot de passe est trop faible. Il doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.
             </div>
         </c:if>
 
@@ -45,6 +45,7 @@
                     <label for="nom">Nom *</label>
                     <input type="text" id="nom" name="nom" class="form-control" placeholder="Dupont" required>
                 </div>
+            </div>
 
             <div class="form-group">
                 <label for="email">Adresse email *</label>
@@ -60,6 +61,7 @@
                     <label for="confirm_password">Confirmer *</label>
                     <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="••••••••" required>
                 </div>
+            </div>
 
             <div class="form-row">
                 <div class="form-group">
@@ -75,6 +77,7 @@
                         <option value="AUTRE">Autre</option>
                     </select>
                 </div>
+            </div>
 
             <div class="form-group">
                 <label for="localisation">Localisation (ville)</label>
@@ -91,7 +94,8 @@
 
         <div class="auth-footer">
             <p>Déjà inscrit ? <a href="${ctx}/login.jsp">Se connecter ici</a></p>
-            <p><a href="${ctx}/index.html">&#8592; Retour à l'accueil</a></p>
+            <p><a href="${ctx}/index.html"><i class="fa-solid fa-arrow-left"></i> Retour à l'accueil</a></p>
         </div>
+    </div>
 </body>
 </html>

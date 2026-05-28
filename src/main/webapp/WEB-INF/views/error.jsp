@@ -7,11 +7,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Erreur - Coup de Foudre</title>
-    <link rel="stylesheet" href="${ctx}/assets/css/style.css">
+    <jsp:include page="/WEB-INF/views/includes/head-assets.jsp" />
 </head>
 <body class="auth-page">
     <div class="auth-container" style="text-align:center;">
-        <div style="font-size:5rem;">&#128533;</div>
+        <div style="font-size:5rem;"><i class="fa-solid fa-face-frown"></i></div>
         <h1>Oups !</h1>
         <p class="text-muted">
             <c:choose>
@@ -30,7 +30,7 @@
             </c:choose>
         </p>
         <div class="mt-3">
-            <a href="${ctx}/index.jsp" class="btn btn-primary">&#127968; Retour à l'accueil</a>
+            <a href="${ctx}/index.jsp" class="btn btn-primary"><i class="fa-solid fa-house"></i> Retour à l'accueil</a>
             <a href="${ctx}/app/dashboard" class="btn btn-secondary">Tableau de bord</a>
         </div>
 </body>

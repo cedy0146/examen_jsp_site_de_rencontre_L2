@@ -7,7 +7,7 @@
 </jsp:include>
 
 <div class="page-header">
-    <h1>&#128681; Signalements utilisateurs</h1>
+    <h1><i class="fa-solid fa-flag"></i> Signalements utilisateurs</h1>
     <p>Gérez les signalements et modérez la communauté.</p>
 </div>
 
@@ -47,12 +47,12 @@
                                     <form action="${ctx}/app/admin" method="post" style="display:inline;">
                                         <input type="hidden" name="action" value="resolveReport">
                                         <input type="hidden" name="reportId" value="${s.id}">
-                                        <button type="submit" class="btn btn-success btn-sm">&#10004; Traiter</button>
+                                        <button type="submit" class="btn btn-success btn-sm"><i class="fa-solid fa-circle-check"></i> Traiter</button>
                                     </form>
                                     <form action="${ctx}/app/admin" method="post" style="display:inline;">
                                         <input type="hidden" name="action" value="rejectReport">
                                         <input type="hidden" name="reportId" value="${s.id}">
-                                        <button type="submit" class="btn btn-danger btn-sm">&#10008; Rejeter</button>
+                                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-xmark"></i> Rejeter</button>
                                     </form>
                                 </c:if>
                             </td>
@@ -68,7 +68,7 @@
 </div>
 
 <div class="mt-3">
-    <a href="${ctx}/app/admin" class="btn btn-secondary">&#8592; Retour au tableau de bord</a>
+    <a href="${ctx}/app/admin" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Retour au tableau de bord</a>
 </div>
 
 <jsp:include page="/WEB-INF/views/includes/footer.jsp" />
